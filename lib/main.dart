@@ -41,8 +41,11 @@ Future<Database> getDatabase() async {
   );
 }
 
-String title = "WHAAAAAAAAAA";
+// TODO: Set a way to add a dog and view all dogs _> maybe also select a dog and edit & delete
+
 // FIXME: relocate widget itself -> only redirect from main actual page needs its own file
+
+String title = "WHAAAAAAAAAA";
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
 
