@@ -1,6 +1,6 @@
-import "dart:html";
-
 import "package:flutter/material.dart";
+import "package:path/path.dart";
+import "package:workouttracker/MVVM/Views/fourthscreen.dart";
 
 class FirstScreen extends StatelessWidget{
   const FirstScreen({super.key});
@@ -42,6 +42,20 @@ class FirstScreen extends StatelessWidget{
               labelText: 'Enter your username',
             ),
           ),
+        ),
+
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 34, 101, 138),
+            elevation: 10,
+          ),
+          onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FourthScreen()),
+            )
+          },
+          child: const Text('Create Dog'),
         ),
       ],
     );

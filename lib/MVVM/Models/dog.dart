@@ -45,7 +45,7 @@ Future<void> insertDog(Dog dog) async {
 
   // Insert Dog into the database
   await db.insert(
-    'dog',
+    'dogs',
     dog.toMap(),
     conflictAlgorithm: ConflictAlgorithm.replace, // If it exists -> replace
   );
