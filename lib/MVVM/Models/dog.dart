@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:workouttracker/main.dart';
 
 import 'package:flutter/widgets.dart';
@@ -9,7 +11,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 /// Define class
-class Dog{
+class Dog implements ListItem{
   final int id;
   final String name;
   final int age;
@@ -23,10 +25,9 @@ class Dog{
   // Convert Dog to a Map -> Keys must correspond to the columns in the database!
   Map<String, Object?> toMap(){
     return {
-      'id': id,
       'name': name,
       'age': age,
-    };
+    }; //ID is autoincremented
   }
 
   /// Override the toString method of the Dog class
@@ -35,6 +36,34 @@ class Dog{
   String toString() {
     return 'Dog{id: $id, name: $name, age: $age}';
   }
+
+  // Implement ListItem Widgets
+  @override
+  Widget buildTitle(BuildContext context) {
+    return Text(
+      name,
+      style: const TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w900,
+        color: Color.fromARGB(255, 0, 0, 0),
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
+  @override
+  Widget buildContext(BuildContext context) {
+    return Text(
+      'Dog{id: $id, name: $name, age: $age}',
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.normal,
+        color: Color.fromARGB(255, 0, 0, 0),
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
 }
 
 /// Insert a dog into the database

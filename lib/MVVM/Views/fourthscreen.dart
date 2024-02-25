@@ -35,12 +35,16 @@ class _FourthScreenState extends State<FourthScreen> {
       body: Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 20,),
+
             const Text(
               "Enter a new Dog!",
             ),
+
+            const SizedBox(height: 20,),
 
             TextFormField(
               decoration: const InputDecoration(
@@ -50,6 +54,8 @@ class _FourthScreenState extends State<FourthScreen> {
               keyboardType: TextInputType.text,
               controller: dogNameController,
             ),
+
+            const SizedBox(height: 20,),
 
             TextFormField(
               decoration: const InputDecoration(
@@ -66,14 +72,14 @@ class _FourthScreenState extends State<FourthScreen> {
               },
             ),
 
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 34, 101, 138),
+                    backgroundColor: const Color.fromARGB(255, 34, 101, 138),
                     elevation: 0,
                   ),
                   onPressed: createNewDog,
@@ -118,6 +124,8 @@ class _FourthScreenState extends State<FourthScreen> {
       //FIXME: no null restrictions yet -> https://stackoverflow.com/questions/53424916/textfield-validation-in-flutter
     }
 
+
+    // Create and save the new dog
     String name = dogNameController.text;
     int age = int.parse(dogAgeController.text);
 
@@ -128,5 +136,9 @@ class _FourthScreenState extends State<FourthScreen> {
     );
 
     insertDog(newDog);
+
+    // Empty the entry fields
+    dogNameController.text = "";
+    dogAgeController.text = "";
   }
 }

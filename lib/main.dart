@@ -2,6 +2,7 @@ import 'package:flutter/material.dart'; // import flutter package material -> Us
 import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
 import 'package:sqflite/sqflite.dart'; // SQlite package
 import 'package:path/path.dart';
+
 import 'dart:async';
 
 import 'MVVM/Views/startingmainpage.dart';
@@ -24,7 +25,7 @@ void main() {
 // Open the SQLite database and store the reference.
 Future<Database> getDatabase() async {
   // Set SQLite statements with column names, types and properties
-  String createDogsTable = 'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)';
+  String createDogsTable = 'CREATE TABLE dogs(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, age INTEGER)';
 
   // Create and return connection
   return openDatabase(
@@ -39,8 +40,6 @@ Future<Database> getDatabase() async {
   );
 }
 
-// TODO: Set a way to add a dog and view all dogs _> maybe also select a dog and edit & delete
-
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
 
@@ -49,4 +48,12 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context){
     return getStartingScreen(context);
   }
+}
+
+abstract class ListItem {
+  // the title line to show in a list item
+  Widget buildTitle(BuildContext context);
+
+  // the context lines, if any, to show in a list item
+  Widget buildContext(BuildContext context);
 }

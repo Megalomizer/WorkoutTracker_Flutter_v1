@@ -1,43 +1,68 @@
 import "package:flutter/material.dart";
+import 'package:workouttracker/MVVM/Models/dog.dart';
+import 'package:workouttracker/MVVM/Views/dogdetailpage.dart';
 
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+class SecondScreen extends StatefulWidget {
+  List<Dog> dogs = [];
+  SecondScreen({super.key, required this.dogs});
+
+  @override
+  State<SecondScreen> createState() => _SecondScreenState(dogs: dogs);
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  List<Dog> dogs = [];
+  _SecondScreenState({required this.dogs});
+
+  Future<void> _stateSet() async {
+    setState(() {
+      _syncAllDogs();
+    });
+  }
+
+  Future<void> _syncAllDogs() async {
+    dogs = await getAllDogs();
+  }
+
+  Future<void> pullRefresh() async {
+    _stateSet();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 360,
-          height: 600,
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(color: Color.fromARGB(255, 229, 225, 212)),
-          child: Stack( // Needed to overlap background
-            children: [
-              Positioned(
-                left: 80,
-                top: 80,
-                child: Container(
-                  width: 200,
-                  height: 100,
-                  decoration: const BoxDecoration(color: Color.fromARGB(255, 109, 202, 169)),
-                  child: const Center(
-                    child: Text(
-                      'Goodddtyyy',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        height: 0,
-                      ),
-                    )
-                  ),
-                ),
-              ),
-            ],
+    _syncAllDogs();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('All Dogs'),
+      ),
+      body: Container(
+        margin: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          top: 20,
+          bottom: 10,
+        ),
+        child: RefreshIndicator(
+          onRefresh: pullRefresh,
+          displacement: 10,
+          child: ListView.builder(
+            itemCount: dogs.length,
+            itemBuilder: (context, index) {
+              final dog = dogs[index];
+              return ListTile(
+                title: dog.buildTitle(context),
+                subtitle: dog.buildContext(context),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DogDetails(dog: dog)),
+                  );
+                },
+              );
+            },  
           ),
         ),
-      ],
+      ),
     );
   }
 }
