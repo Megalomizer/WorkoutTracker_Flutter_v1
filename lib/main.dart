@@ -1,45 +1,44 @@
 import 'package:flutter/material.dart'; // import flutter package material -> Used to create UI
 import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
-import 'package:sqflite/sqflite.dart'; // SQlite package
 import 'package:path/path.dart';
-
+import 'package:workouttracker/Abstracts/databaseconfig.dart';
 import 'dart:async';
 
 import 'MVVM/Views/startingmainpage.dart';
+import 'MVVM/Models/trainee.dart';
+import 'MVVM/Models/trainingsschedule.dart';
+import 'MVVM/Models/trainingselement.dart';
+import 'MVVM/Models/traininghistoryschedules.dart';
+
+
+// Provides acces to the db throughout the app
+late ObjectBox box;
+
+// A box for each object to interact with the db
+//late final Box<Trainee> traineeBox;
+late final schedulesBox;
+late final elementBox;
+late final historyBox;
 
 // Entry point into the application -> The very first beginning
-void main() {
-  runApp(const MyApp());
-
-  // Avoid errors caused by flutter upgrade.
+Future<void> main() async {
+  // Avoid errors caused by flutter upgrade & so objectbox can get the app directory to store the db in
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Create and open a SQLite database and store the reference
-  final database = getDatabase();
+  // Initialize the DB
+  box = await ObjectBox.create();
 
-  Future<Database> GetDatabaseInstance() async {
-    return database;
-  }
+  // The boxes with data -> For each class one
+  box.traineeBox = box.store.box<Trainee>();
+  schedulesBox = box.store.box<TrainingsSchedule>();
+  elementBox = box.store.box<TrainingsElement>();
+  historyBox = box.store.box<HistorySchedule>();
+
+  // Run the main app widget
+  runApp(const MyApp());
 } 
 
-// Open the SQLite database and store the reference.
-Future<Database> getDatabase() async {
-  // Set SQLite statements with column names, types and properties
-  String createDogsTable = 'CREATE TABLE dogs(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT, age INTEGER)';
-
-  // Create and return connection
-  return openDatabase(
-    join(await getDatabasesPath(), 'doggie_database.db'), // Set the path to the database.
-    onCreate: (db, version){
-      // Run the CREATE TABLE statement on the database --> Uses SQLite statements
-      return db.execute(
-        createDogsTable,
-      );
-    },
-    version: 1,
-  );
-}
-
+//FIXME: Please fix the starting screen -> Its not good
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
 

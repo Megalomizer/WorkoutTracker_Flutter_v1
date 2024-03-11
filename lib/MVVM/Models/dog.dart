@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:workouttracker/main.dart';
+import 'package:workouttracker/abstracts/databaseconfig.dart' as dbconfig;
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
@@ -69,7 +70,7 @@ class Dog implements ListItem{
 /// Insert a dog into the database
 Future<void> insertDog(Dog dog) async {
   // get a reference to the database
-  Future<Database> database = getDatabase();
+  Future<Database> database = dbconfig.getDatabase();
   final db = await database;
 
   // Insert Dog into the database
@@ -82,7 +83,7 @@ Future<void> insertDog(Dog dog) async {
 
 /// Get a list of all dogs in the database
 Future<List<Dog>> getAllDogs() async {
-  Future<Database> database = getDatabase();
+  Future<Database> database = dbconfig.getDatabase();
   final db = await database;
 
   // query the table for all the dogs
@@ -101,7 +102,7 @@ Future<List<Dog>> getAllDogs() async {
 
 /// Update an entry of Dog in the database
 Future<void> updateDog(Dog dog) async {
-  Future<Database> database = getDatabase();
+  Future<Database> database = dbconfig.getDatabase();
   final db = await database;
 
   await db.update(
@@ -114,7 +115,7 @@ Future<void> updateDog(Dog dog) async {
 
 /// Delete an entry if Dog in the database by ID
 Future<void> deleteDog(int id) async {
-  Future<Database> database = getDatabase();
+  Future<Database> database = dbconfig.getDatabase();
   final db = await database;
 
   await db.delete(
