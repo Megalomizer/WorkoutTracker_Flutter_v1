@@ -13,7 +13,7 @@ class FirstScreen extends StatelessWidget{
   Widget build(BuildContext context){
     List<Dog> dogs = [];
     Future<void> syncListDogs() async {
-      dogs = await getAllDogs();
+      //dogs = await getAllDogs();
     }
     syncListDogs();
 

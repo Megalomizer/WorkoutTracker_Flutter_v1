@@ -21,7 +21,7 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   Future<void> _syncAllDogs() async {
-    dogs = await getAllDogs();
+    //dogs = await getAllDogs();
   }
 
   Future<void> pullRefresh() async {

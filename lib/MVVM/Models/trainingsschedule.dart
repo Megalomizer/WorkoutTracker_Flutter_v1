@@ -1,4 +1,5 @@
 import 'package:objectbox/objectbox.dart';
+import 'package:workouttracker/main.dart';
 
 import './trainee.dart';
 import './trainingselement.dart';
@@ -30,3 +31,56 @@ class TrainingsSchedule {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////       General CRUD Implementation Sequence       ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Put a new object in the db box
+void putObject(TrainingsSchedule schedule) {
+  box.schedulesBox.put(schedule);
+}
+
+// Get an object by id from the db box
+TrainingsSchedule? getObject(int id) {
+  TrainingsSchedule? schedule = box.schedulesBox.get(id);
+  return schedule;
+}
+
+// Get multiple objects by id from the db box
+List<TrainingsSchedule?> getMultipleObjects(List<int> ids) {
+  List<TrainingsSchedule?> schedules = box.schedulesBox.getMany(ids);
+  return schedules;
+}
+
+// Get all objects from the db box
+List<TrainingsSchedule?> getAllObjects() {
+  List<TrainingsSchedule?> schedules = box.schedulesBox.getAll();
+  return schedules;
+}
+
+// Remove the object from the db box using id
+bool removeObject(int id) {
+  final wasRemoved = box.schedulesBox.remove(id);
+  return wasRemoved;
+}
+
+// Remove multiple objects from the db box using id
+bool removeMultipleObjects(List<int> ids) {
+  final totalToRemove = ids.length;
+  final totalRemoved = box.schedulesBox.removeMany(ids);
+  if(totalRemoved == totalToRemove) {
+    // When everything is removed
+    return true;
+  }
+  return false; // Else
+}
+
+// Remove all objects from the db box
+bool removeAllObjects({bool? check = false}) {
+  if(check == true) {
+    final totalToRemove = box.schedulesBox.count();
+    final totalRemoved = box.schedulesBox.removeAll();
+    if(totalRemoved == totalToRemove) {
+      return true;
+    }
+  }
+
+  return false;
+}
