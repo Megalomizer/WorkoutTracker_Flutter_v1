@@ -33,36 +33,36 @@ class TrainingsSchedule {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Put a new object in the db box
-void putObject(TrainingsSchedule schedule) {
+void putSchedule(TrainingsSchedule schedule) {
   box.schedulesBox.put(schedule);
 }
 
 // Get an object by id from the db box
-TrainingsSchedule? getObject(int id) {
+TrainingsSchedule? getSchedule(int id) {
   TrainingsSchedule? schedule = box.schedulesBox.get(id);
   return schedule;
 }
 
 // Get multiple objects by id from the db box
-List<TrainingsSchedule?> getMultipleObjects(List<int> ids) {
+List<TrainingsSchedule?> getMultipleSchedules(List<int> ids) {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getMany(ids);
   return schedules;
 }
 
 // Get all objects from the db box
-List<TrainingsSchedule?> getAllObjects() {
+List<TrainingsSchedule?> getAllSchedules() {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getAll();
   return schedules;
 }
 
 // Remove the object from the db box using id
-bool removeObject(int id) {
+bool removeSchedule(int id) {
   final wasRemoved = box.schedulesBox.remove(id);
   return wasRemoved;
 }
 
 // Remove multiple objects from the db box using id
-bool removeMultipleObjects(List<int> ids) {
+bool removeMultipleSchedules(List<int> ids) {
   final totalToRemove = ids.length;
   final totalRemoved = box.schedulesBox.removeMany(ids);
   if(totalRemoved == totalToRemove) {
@@ -73,7 +73,7 @@ bool removeMultipleObjects(List<int> ids) {
 }
 
 // Remove all objects from the db box
-bool removeAllObjects({bool? check = false}) {
+bool removeAllSchedules({bool? check = false}) {
   if(check == true) {
     final totalToRemove = box.schedulesBox.count();
     final totalRemoved = box.schedulesBox.removeAll();

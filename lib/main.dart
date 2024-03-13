@@ -1,15 +1,7 @@
-import 'package:flutter/material.dart'; // import flutter package material -> Used to create UI
-import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
-import 'package:path/path.dart';
+import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
+
 import 'package:workouttracker/Abstracts/databaseconfig.dart';
-import 'dart:async';
-
-import 'MVVM/Views/startingmainpage.dart';
-import 'MVVM/Models/trainee.dart';
-import 'MVVM/Models/trainingsschedule.dart';
-import 'MVVM/Models/trainingselement.dart';
-import 'MVVM/Models/traininghistoryschedules.dart';
-
+import 'package:workouttracker/MVVM/Views/myappmain.dart';
 
 // Provides acces to the db throughout the app
 late ObjectBox box;
@@ -38,14 +30,13 @@ Future<void> main() async {
   runApp(const MyApp());
 } 
 
-//FIXME: Please fix the starting screen -> Its not good
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
 
   // this widget is the root of your application
   @override
   Widget build(BuildContext context){
-    return getStartingScreen(context);
+    return myAppMain(context);
   }
 }
 

@@ -34,36 +34,36 @@ class TrainingsElement {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Put a new object in the db box
-void putObject(TrainingsElement element) {
+void putElement(TrainingsElement element) {
   box.elementBox.put(element);
 }
 
 // Get an object by id from the db box
-TrainingsElement? getObject(int id) {
+TrainingsElement? getElement(int id) {
   TrainingsElement? element = box.elementBox.get(id);
   return element;
 }
 
 // Get multiple objects by id from the db box
-List<TrainingsElement?> getMultipleObjects(List<int> ids) {
+List<TrainingsElement?> getMultipleElements(List<int> ids) {
   List<TrainingsElement?> elements = box.elementBox.getMany(ids);
   return elements;
 }
 
 // Get all objects from the db box
-List<TrainingsElement?> getAllObjects() {
+List<TrainingsElement?> getAllElements() {
   List<TrainingsElement?> elements = box.elementBox.getAll();
   return elements;
 }
 
 // Remove the object from the db box using id
-bool removeObject(int id) {
+bool removeElement(int id) {
   final wasRemoved = box.elementBox.remove(id);
   return wasRemoved;
 }
 
 // Remove multiple objects from the db box using id
-bool removeMultipleObjects(List<int> ids) {
+bool removeMultipleElements(List<int> ids) {
   final totalToRemove = ids.length;
   final totalRemoved = box.elementBox.removeMany(ids);
   if(totalRemoved == totalToRemove) {
@@ -74,7 +74,7 @@ bool removeMultipleObjects(List<int> ids) {
 }
 
 // Remove all objects from the db box
-bool removeAllObjects({bool? check = false}) {
+bool removeAllElements({bool? check = false}) {
   if(check == true) {
     final totalToRemove = box.elementBox.count();
     final totalRemoved = box.elementBox.removeAll();
