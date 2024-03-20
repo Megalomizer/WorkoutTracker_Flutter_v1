@@ -360,8 +360,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (TrainingsSchedule object, fb.Builder fbb) {
-          final nameOffset =
-              object.name == null ? null : fbb.writeString(object.name!);
+          final nameOffset = fbb.writeString(object.name);
           fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
@@ -378,7 +377,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final object = TrainingsSchedule()
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..name = const fb.StringReader(asciiOptimization: true)
-                .vTableGetNullable(buffer, rootOffset, 6)
+                .vTableGet(buffer, rootOffset, 6, '')
             ..kcal = const fb.Int64Reader().vTableGet(buffer, rootOffset, 8, 0)
             ..locationSpecific =
                 const fb.BoolReader().vTableGet(buffer, rootOffset, 10, false);

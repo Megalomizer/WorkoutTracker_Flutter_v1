@@ -12,3 +12,6 @@ export 'package:flutter/material.dart'; // Flutter UI Creation
 export 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
 export 'package:path/path.dart'; // Paths for files
 export 'dart:async'; // Async functions
+
+// Custom Widgets
+export 'package:workouttracker/MVVM/Widgets/textstyles.dart';

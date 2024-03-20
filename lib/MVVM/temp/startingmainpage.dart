@@ -2,10 +2,10 @@ import 'package:flutter/material.dart'; // import flutter package material -> Us
 import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
 import 'package:path/path.dart';
 
-import './firstscreen.dart';
-import './secondscreen.dart';
-import './thirdscreen.dart';
-import './firstscreendataentry.dart';
+import 'firstscreen.dart';
+import 'secondscreen.dart';
+import 'thirdscreen.dart';
+import 'firstscreendataentry.dart';
 
 import 'package:workouttracker/MVVM/Models/dog.dart'; 
 

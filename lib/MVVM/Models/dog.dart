@@ -11,6 +11,8 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'package:workouttracker/MVVM/Widgets/listitem.dart';
+
 /// Define class
 class Dog implements ListItem{
   final int id;

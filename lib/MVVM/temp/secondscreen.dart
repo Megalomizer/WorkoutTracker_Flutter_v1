@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:workouttracker/MVVM/Models/dog.dart';
-import 'package:workouttracker/MVVM/Views/dogdetailpage.dart';
+import 'package:workouttracker/MVVM/temp/dogdetailpage.dart';
 
 class SecondScreen extends StatefulWidget {
   List<Dog> dogs = [];
