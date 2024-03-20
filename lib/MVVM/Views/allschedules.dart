@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 import 'package:workouttracker/MVVM/Widgets/maindrawer.dart'; // Import standard drawer
 
@@ -10,9 +9,13 @@ class AllSchedules extends StatefulWidget {
 }
 
 class _AllSchedulesState extends State<AllSchedules> {
-  final List<TrainingsSchedule> allSchedules = box.schedulesBox.getAll();
+  List<TrainingsSchedule> allSchedules = box.schedulesBox.getAll();
 
-  Future<void> pullRefresh() async {}
+  Future<void> pullRefresh () async {
+    setState(() {
+      allSchedules = box.schedulesBox.getAll();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,12 @@ class _AllSchedulesState extends State<AllSchedules> {
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Add new schedule',
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/schedules/create',
+              );
+            },
           ),
         ],
       ),
@@ -51,6 +59,7 @@ class _AllSchedulesState extends State<AllSchedules> {
               return ListTile(
                 title: schedule.buildTitle(context),
                 subtitle: schedule.buildContext(context),
+                tileColor: const Color.fromARGB(255, 175, 175, 175),
                 onTap: () {
                   Navigator.pushNamed(
                     context,

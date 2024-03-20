@@ -3,7 +3,7 @@ import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 import 'package:workouttracker/MVVM/Widgets/maindrawer.dart';
 import 'package:workouttracker/objectbox.g.dart'; // Import standard drawer
 
-class ScheduleDetails extends StatelessWidget { 
+class ScheduleDetails extends StatelessWidget {
   const ScheduleDetails({super.key});
 
   @override
@@ -11,10 +11,10 @@ class ScheduleDetails extends StatelessWidget {
     final TrainingsSchedule selectedSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "${selectedSchedule.name} details",
-          style: const TextStyle(
-            fontSize: 32,
+        title: const Text(
+          "Schedule details",
+          style: TextStyle(
+            fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 0, 0, 0),
           ),
@@ -23,7 +23,10 @@ class ScheduleDetails extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete),
             tooltip: "Delete schedule",
-            onPressed: () {},
+            onPressed: () {
+              removeSchedule(selectedSchedule.id);
+              Navigator.pop(context);
+            },
           ),
           IconButton(
             icon: const Icon(Icons.edit),

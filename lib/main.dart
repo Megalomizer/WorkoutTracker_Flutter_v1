@@ -1,4 +1,5 @@
 import 'package:workouttracker/MVVM/Views/allschedules.dart';
+import 'package:workouttracker/MVVM/Views/createschedule.dart';
 import 'package:workouttracker/MVVM/Views/scheduledetails.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 import 'package:workouttracker/abstracts/databaseconfig.dart';
@@ -11,9 +12,9 @@ late ObjectBox box;
 
 // A box for each object to interact with the db
 //late final Box<Trainee> traineeBox;
-late final schedulesBox;
-late final elementBox;
-late final historyBox;
+// late final schedulesBox;
+// late final elementBox;
+// late final historyBox;
 
 // Entry point into the application -> The very first beginning
 Future<void> main() async {
@@ -25,9 +26,9 @@ Future<void> main() async {
 
   // The boxes with data -> For each class one
   box.traineeBox = box.store.box<Trainee>();
-  schedulesBox = box.store.box<TrainingsSchedule>();
-  elementBox = box.store.box<TrainingsElement>();
-  historyBox = box.store.box<HistorySchedule>();
+  box.schedulesBox = box.store.box<TrainingsSchedule>();
+  box.elementBox = box.store.box<TrainingsElement>();
+  box.historyBox = box.store.box<HistorySchedule>();
 
   // Run the main app widget
   runApp(MaterialApp(
@@ -40,6 +41,7 @@ Future<void> main() async {
     routes: <String, WidgetBuilder>{
       '/schedules': (BuildContext context) => const AllSchedules(),
       '/schedules/details': (BuildContext context) => const ScheduleDetails(),
+      '/schedules/create': (BuildContext context) => const CreateSchedule(),
     }
   ));
 } 

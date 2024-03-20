@@ -26,20 +26,61 @@ class TrainingsSchedule implements ListItem {
         fontWeight: FontWeight.w900,
         color: Color.fromARGB(255, 0, 0, 0),
       ),
-      textAlign: TextAlign.start,
+      textAlign: TextAlign.center,
     );
   }
 
   @override
   Widget buildContext(BuildContext context) {
-    return Text(
-      'Schedule{id: $id, name: $name, duration: $duration, kcal: $kcal}',
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.normal,
-        color: Color.fromARGB(255, 0, 0, 0),
-      ),
-      textAlign: TextAlign.start,
+    return Table(
+      children: <TableRow>[
+        TableRow(
+          children: <Widget>[
+            const Text(
+              'Duration:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(width: 20,),
+            Text(
+              '${duration.inMinutes} minutes',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              textAlign: TextAlign.end,
+            ),
+          ],
+        ),
+        TableRow(
+          children: <Widget>[
+            const Text(
+              'Kcal:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(width: 20,),
+            Text(
+              '$kcal kcal',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              textAlign: TextAlign.end,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -81,10 +122,7 @@ bool removeSchedule(int id) {
 bool removeMultipleSchedules(List<int> ids) {
   final totalToRemove = ids.length;
   final totalRemoved = box.schedulesBox.removeMany(ids);
-  if(totalRemoved == totalToRemove) {
-    // When everything is removed
-    return true;
-  }
+  if(totalRemoved == totalToRemove) return true; // When everything is removed
   return false; // Else
 }
 
@@ -93,10 +131,7 @@ bool removeAllSchedules({bool? check = false}) {
   if(check == true) {
     final totalToRemove = box.schedulesBox.count();
     final totalRemoved = box.schedulesBox.removeAll();
-    if(totalRemoved == totalToRemove) {
-      return true;
-    }
+    if(totalRemoved == totalToRemove) return true; // When everything is removed
   }
-
   return false;
 }
