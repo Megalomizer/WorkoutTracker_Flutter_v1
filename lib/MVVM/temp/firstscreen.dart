@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:path/path.dart";
 
-import "package:workouttracker/MVVM/Views/fourthscreen.dart";
-import "package:workouttracker/MVVM/Views/secondscreen.dart";
+import "package:workouttracker/MVVM/temp/fourthscreen.dart";
+import "package:workouttracker/MVVM/temp/secondscreen.dart";
 
 import 'package:workouttracker/MVVM/Models/dog.dart';
 
@@ -15,7 +15,6 @@ class FirstScreen extends StatelessWidget{
     Future<void> syncListDogs() async {
       //dogs = await getAllDogs();
     }
-    syncListDogs();
 
     return Column(
       children: <Widget>[

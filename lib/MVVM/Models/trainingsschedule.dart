@@ -1,31 +1,47 @@
 import 'package:objectbox/objectbox.dart';
-import 'package:workouttracker/main.dart';
-
-import './trainee.dart';
-import './trainingselement.dart';
+import 'package:workouttracker/abstracts/fileimports.dart';
+import 'package:workouttracker/MVVM/Widgets/listitem.dart';
 
 @Entity()
-class TrainingsSchedule {
+class TrainingsSchedule implements ListItem {
   // properties
   @Id()
   int id = 0;
-
   @Index(type: IndexType.value)
-  String? name;
-
+  String name = "";
   Duration duration = Duration.zero;
   int kcal = 0;
   bool locationSpecific = false;
-  
   @Backlink('schedule')
   final scheduleItems = ToMany<TrainingsElement>(); // 1:N
   final trainee = ToOne<Trainee>(); // 1:N
-  
-  // // Makes it easier to view/print information about an object
-  // @override
-  // String toString() {
-  //   return 'TrainingsSchedule{id: $id, name: $name, trainee: $trainee, duration: ${duration.inMinutes}, kcal: $kcal, locationSpecific: $locationSpecific}';
-  // }
+
+  // Implement Widget from ListItem
+  @override
+  Widget buildTitle(BuildContext context) {
+    return Text(
+      name,
+      style: const TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w900,
+        color: Color.fromARGB(255, 0, 0, 0),
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
+
+  @override
+  Widget buildContext(BuildContext context) {
+    return Text(
+      'Schedule{id: $id, name: $name, duration: $duration, kcal: $kcal}',
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.normal,
+        color: Color.fromARGB(255, 0, 0, 0),
+      ),
+      textAlign: TextAlign.start,
+    );
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

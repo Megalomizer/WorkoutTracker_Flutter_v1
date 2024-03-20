@@ -1,7 +1,10 @@
+import 'package:workouttracker/MVVM/Views/allschedules.dart';
+import 'package:workouttracker/MVVM/Views/scheduledetails.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
+import 'package:workouttracker/abstracts/databaseconfig.dart';
 
-import 'package:workouttracker/Abstracts/databaseconfig.dart';
-import 'package:workouttracker/MVVM/Views/myappmain.dart';
+import 'package:workouttracker/MVVM/Widgets/maindrawer.dart';
+import 'package:workouttracker/MVVM/Widgets/mainbody.dart';
 
 // Provides acces to the db throughout the app
 late ObjectBox box;
@@ -27,23 +30,37 @@ Future<void> main() async {
   historyBox = box.store.box<HistorySchedule>();
 
   // Run the main app widget
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    title: 'Workout Tracker',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 90, 10, 175)),
+      useMaterial3: true,
+    ),
+    home: MyAppHome(),
+    routes: <String, WidgetBuilder>{
+      '/schedules': (BuildContext context) => const AllSchedules(),
+      '/schedules/details': (BuildContext context) => const ScheduleDetails(),
+    }
+  ));
 } 
 
-class MyApp extends StatelessWidget{
-  const MyApp({super.key});
-
-  // this widget is the root of your application
+// Main app home
+class MyAppHome extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return myAppMain(context);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text(
+          "Homescreen",
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: const MainBody(),
+      drawer: const MainDrawer(),
+    );
   }
-}
-
-abstract class ListItem {
-  // the title line to show in a list item
-  Widget buildTitle(BuildContext context);
-
-  // the context lines, if any, to show in a list item
-  Widget buildContext(BuildContext context);
 }

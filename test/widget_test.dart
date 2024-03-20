@@ -13,7 +13,17 @@ import 'package:workouttracker/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MaterialApp(
+      title: 'Workout Tracker',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 90, 10, 175)),
+        useMaterial3: true,
+      ),
+      home: MyAppHome(),
+      routes: <String, WidgetBuilder>{
+        //'/p2': (BuildContext context) => const FirstRoute(),
+      }
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
