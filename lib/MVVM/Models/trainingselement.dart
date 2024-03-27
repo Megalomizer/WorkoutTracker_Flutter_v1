@@ -1,10 +1,12 @@
 import 'package:objectbox/objectbox.dart';
+import 'package:workouttracker/abstracts/fileimports.dart';
 import 'package:workouttracker/main.dart';
+import 'package:workouttracker/MVVM/Widgets/listitem.dart';
 
 import './trainingsschedule.dart';
 
 @Entity()
-class TrainingsElement {
+class TrainingsElement implements ListItem {
   // properties
   @Id()
   int id = 0;
@@ -22,11 +24,32 @@ class TrainingsElement {
   
   final schedule = ToOne<TrainingsSchedule>(); // 1:N
 
-  // // Makes it easier to view/print information about an object
-  // @override
-  // String toString() {
-  //   return 'TrainingsElement{id: $id, name: $name, description: $description, sets: $sets, iterations: $iterations, duration: $duration, weight: $weight, kcal: $kcal, locationSpecific: $locationSpecific';
-  // }
+  @override
+  Widget buildTitle(BuildContext context) {
+    return ListItemTitle(text: name!);
+  }
+
+  @override
+  Widget buildContext(BuildContext context) {
+    return Table(
+      children: <TableRow>[
+        TableRow(
+          children: <Widget>[
+            const ListItemContextStart(text: 'Duration'),
+            const SizedBox(width: 20,),
+            ListItemContextEnd(text: '${duration.inMinutes} minutes'),
+          ],
+        ),
+        TableRow(
+          children: <Widget>[
+            const ListItemContextStart(text: 'Kcal'),
+            const SizedBox(width: 20,),
+            ListItemContextEnd(text: '$kcal kcal'),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,8 +74,8 @@ List<TrainingsElement?> getMultipleElements(List<int> ids) {
 }
 
 // Get all objects from the db box
-List<TrainingsElement?> getAllElements() {
-  List<TrainingsElement?> elements = box.elementBox.getAll();
+List<TrainingsElement> getAllElements() {
+  List<TrainingsElement> elements = box.elementBox.getAll();
   return elements;
 }
 

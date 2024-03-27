@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:workouttracker/abstracts/fileimports.dart';
 
 class CreateSchedule extends StatefulWidget {
@@ -68,13 +70,13 @@ class _CreateScheduleState extends State<CreateSchedule> {
                       _createSchedule();
                       Navigator.pop(context);
                     },
-                    child: const Text("Button 1"),
+                    child: const Text("Create"),
                   ),
                   OutlinedButton( // Cancel creation
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Button 2"),
+                    child: const Text("Cancel"),
                   ),
                 ],
               ),
@@ -92,6 +94,9 @@ class _CreateScheduleState extends State<CreateSchedule> {
     }
     if (new_locationspecific != null) {
       createdSchedule.locationSpecific = new_locationspecific;
+    }
+    if (activeUser != null) {
+      createdSchedule.trainee.target = activeUser;
     }
     putSchedule(createdSchedule);
   }

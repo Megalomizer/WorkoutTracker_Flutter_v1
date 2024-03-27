@@ -22,13 +22,7 @@ class _AllSchedulesState extends State<AllSchedules> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(
-          "All Schedules",
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const AppBarTitleText(text: 'All Schedules'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -60,6 +54,7 @@ class _AllSchedulesState extends State<AllSchedules> {
                 title: schedule.buildTitle(context),
                 subtitle: schedule.buildContext(context),
                 tileColor: const Color.fromARGB(255, 175, 175, 175),
+                horizontalTitleGap: 10,
                 onTap: () {
                   Navigator.pushNamed(
                     context,

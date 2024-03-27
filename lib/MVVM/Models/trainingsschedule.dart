@@ -4,7 +4,7 @@ import 'package:workouttracker/MVVM/Widgets/listitem.dart';
 
 @Entity()
 class TrainingsSchedule implements ListItem {
-  // properties
+  /// properties
   @Id()
   int id = 0;
   @Index(type: IndexType.value)
@@ -13,21 +13,13 @@ class TrainingsSchedule implements ListItem {
   int kcal = 0;
   bool locationSpecific = false;
   @Backlink('schedule')
-  final scheduleItems = ToMany<TrainingsElement>(); // 1:N
+  List<TrainingsElement> scheduleItems = ToMany<TrainingsElement>(); // 1:N
   final trainee = ToOne<Trainee>(); // 1:N
 
-  // Implement Widget from ListItem
+  /// Implement Widget from ListItem
   @override
   Widget buildTitle(BuildContext context) {
-    return Text(
-      name,
-      style: const TextStyle(
-        fontSize: 28,
-        fontWeight: FontWeight.w900,
-        color: Color.fromARGB(255, 0, 0, 0),
-      ),
-      textAlign: TextAlign.center,
-    );
+    return ListItemTitle(text: name!);
   }
 
   @override
@@ -36,48 +28,16 @@ class TrainingsSchedule implements ListItem {
       children: <TableRow>[
         TableRow(
           children: <Widget>[
-            const Text(
-              'Duration:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              textAlign: TextAlign.start,
-            ),
+            const ListItemContextStart(text: 'Duration'),
             const SizedBox(width: 20,),
-            Text(
-              '${duration.inMinutes} minutes',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              textAlign: TextAlign.end,
-            ),
+            ListItemContextEnd(text: '${duration.inMinutes} minutes'),
           ],
         ),
         TableRow(
           children: <Widget>[
-            const Text(
-              'Kcal:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              textAlign: TextAlign.start,
-            ),
+            const ListItemContextStart(text: 'Kcal'),
             const SizedBox(width: 20,),
-            Text(
-              '$kcal kcal',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              textAlign: TextAlign.end,
-            ),
+            ListItemContextEnd(text: '$kcal kcal'),
           ],
         ),
       ],
@@ -85,40 +45,40 @@ class TrainingsSchedule implements ListItem {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////       General CRUD Implementation Sequence       ///////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
+//|||||||||||||||||||||||||||||||||||||||||||||//      General CRUD Implementation Sequence          //|||||||||||||||||||||||||||||||||||||||||||||// 
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 
-// Put a new object in the db box
+/// Put a new object in the db box
 void putSchedule(TrainingsSchedule schedule) {
   box.schedulesBox.put(schedule);
 }
 
-// Get an object by id from the db box
+/// Get an object by id from the db box
 TrainingsSchedule? getSchedule(int id) {
   TrainingsSchedule? schedule = box.schedulesBox.get(id);
   return schedule;
 }
 
-// Get multiple objects by id from the db box
+/// Get multiple objects by id from the db box
 List<TrainingsSchedule?> getMultipleSchedules(List<int> ids) {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getMany(ids);
   return schedules;
 }
 
-// Get all objects from the db box
+/// Get all objects from the db box
 List<TrainingsSchedule?> getAllSchedules() {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getAll();
   return schedules;
 }
 
-// Remove the object from the db box using id
+/// Remove the object from the db box using id
 bool removeSchedule(int id) {
   final wasRemoved = box.schedulesBox.remove(id);
   return wasRemoved;
 }
 
-// Remove multiple objects from the db box using id
+/// Remove multiple objects from the db box using id
 bool removeMultipleSchedules(List<int> ids) {
   final totalToRemove = ids.length;
   final totalRemoved = box.schedulesBox.removeMany(ids);
@@ -126,7 +86,7 @@ bool removeMultipleSchedules(List<int> ids) {
   return false; // Else
 }
 
-// Remove all objects from the db box
+/// Remove all objects from the db box
 bool removeAllSchedules({bool? check = false}) {
   if(check == true) {
     final totalToRemove = box.schedulesBox.count();

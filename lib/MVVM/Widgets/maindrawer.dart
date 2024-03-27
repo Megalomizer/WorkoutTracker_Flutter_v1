@@ -35,20 +35,23 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text(
-            "All Schedules",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+            title: const DrawerListItem(text: 'All Schedules'),
             onTap: () => {
               Navigator.pushNamed(
                 context,
-                '/schedules'
+                '/schedules',
               )
             },
           ),
+          ListTile(
+            title: const DrawerListItem(text: 'All Elements'),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/elements',
+              );
+            },
+          )
         ],
       ),
     );

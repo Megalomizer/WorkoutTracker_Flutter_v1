@@ -163,12 +163,7 @@ final _entities = <obx_int.ModelEntity>[
             relationTarget: 'Trainee')
       ],
       relations: <obx_int.ModelRelation>[],
-      backlinks: <obx_int.ModelBacklink>[
-        obx_int.ModelBacklink(
-            name: 'scheduleItems',
-            srcEntity: 'TrainingsElement',
-            srcField: 'schedule')
-      ]),
+      backlinks: <obx_int.ModelBacklink>[]),
   obx_int.ModelEntity(
       id: const obx_int.IdUid(4, 2452244673790064294),
       name: 'Trainee',
@@ -350,11 +345,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
     TrainingsSchedule: obx_int.EntityDefinition<TrainingsSchedule>(
         model: _entities[2],
         toOneRelations: (TrainingsSchedule object) => [object.trainee],
-        toManyRelations: (TrainingsSchedule object) => {
-              obx_int.RelInfo<TrainingsElement>.toOneBacklink(9, object.id,
-                      (TrainingsElement srcObject) => srcObject.schedule):
-                  object.scheduleItems
-            },
+        toManyRelations: (TrainingsSchedule object) => {},
         getId: (TrainingsSchedule object) => object.id,
         setId: (TrainingsSchedule object, int id) {
           object.id = id;
@@ -384,11 +375,6 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.trainee.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
           object.trainee.attach(store);
-          obx_int.InternalToManyAccess.setRelInfo<TrainingsSchedule>(
-              object.scheduleItems,
-              store,
-              obx_int.RelInfo<TrainingsElement>.toOneBacklink(9, object.id,
-                  (TrainingsElement srcObject) => srcObject.schedule));
           return object;
         }),
     Trainee: obx_int.EntityDefinition<Trainee>(
@@ -420,13 +406,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
         objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
-
-          final object = Trainee()
-            ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
-            ..firstName = const fb.StringReader(asciiOptimization: true)
-                .vTableGetNullable(buffer, rootOffset, 6)
-            ..lastName = const fb.StringReader(asciiOptimization: true)
-                .vTableGetNullable(buffer, rootOffset, 8);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final firstNameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 6);
+          final lastNameParam = const fb.StringReader(asciiOptimization: true)
+              .vTableGetNullable(buffer, rootOffset, 8);
+          final object = Trainee(
+              id: idParam, firstName: firstNameParam, lastName: lastNameParam);
           obx_int.InternalToManyAccess.setRelInfo<Trainee>(
               object.schedules,
               store,
@@ -533,11 +520,6 @@ class TrainingsSchedule_ {
   /// see [TrainingsSchedule.trainee]
   static final trainee = obx.QueryRelationToOne<TrainingsSchedule, Trainee>(
       _entities[2].properties[4]);
-
-  /// see [TrainingsSchedule.scheduleItems]
-  static final scheduleItems =
-      obx.QueryBacklinkToMany<TrainingsElement, TrainingsSchedule>(
-          TrainingsElement_.schedule);
 }
 
 /// [Trainee] entity fields to define ObjectBox queries.

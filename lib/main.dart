@@ -1,6 +1,4 @@
-import 'package:workouttracker/MVVM/Views/allschedules.dart';
-import 'package:workouttracker/MVVM/Views/createschedule.dart';
-import 'package:workouttracker/MVVM/Views/scheduledetails.dart';
+import 'package:workouttracker/abstracts/pageimports.dart'; // All pages imported
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 import 'package:workouttracker/abstracts/databaseconfig.dart';
 
@@ -10,11 +8,8 @@ import 'package:workouttracker/MVVM/Widgets/mainbody.dart';
 // Provides acces to the db throughout the app
 late ObjectBox box;
 
-// A box for each object to interact with the db
-//late final Box<Trainee> traineeBox;
-// late final schedulesBox;
-// late final elementBox;
-// late final historyBox;
+// General / Active user
+Trainee? activeUser;
 
 // Entry point into the application -> The very first beginning
 Future<void> main() async {
@@ -30,11 +25,17 @@ Future<void> main() async {
   box.elementBox = box.store.box<TrainingsElement>();
   box.historyBox = box.store.box<HistorySchedule>();
 
+  // Configure the general user / active user -> No logging in
+  Trainee activeUser =  Trainee(id: 1);
+  putTrainee(activeUser);
+  Trainee? user = getTrainee(1);
+  if(user != null) activeUser = user;
+
   // Run the main app widget
   runApp(MaterialApp(
     title: 'Workout Tracker',
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 90, 10, 175)),
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 90, 10, 175)),
       useMaterial3: true,
     ),
     home: MyAppHome(),
@@ -42,6 +43,8 @@ Future<void> main() async {
       '/schedules': (BuildContext context) => const AllSchedules(),
       '/schedules/details': (BuildContext context) => const ScheduleDetails(),
       '/schedules/create': (BuildContext context) => const CreateSchedule(),
+      '/elements': (BuildContext context) => const AllElements(),
+      '/elements/create': (BuildContext context) => const CreateElement(),
     }
   ));
 } 
@@ -53,13 +56,7 @@ class MyAppHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text(
-          "Homescreen",
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const AppBarTitleText(text: 'Homescreen'),
       ),
       body: const MainBody(),
       drawer: const MainDrawer(),
