@@ -153,6 +153,7 @@ class DrawerListItem extends StatelessWidget {
   }
 }
 
+/// Form labels
 class LabelTextInputDecoration extends TextStyle {
   @override
   TextStyle build(BuildContext context) {
@@ -164,6 +165,7 @@ class LabelTextInputDecoration extends TextStyle {
   }
 }
 
+/// Form input fields
 class FormTextInputField extends TextStyle {
   @override
   TextStyle build(BuildContext context) {
@@ -171,6 +173,42 @@ class FormTextInputField extends TextStyle {
       fontSize: 16,
       fontWeight: FontWeight.normal,
       color: Color.fromARGB(255, 0, 0, 0),
+    );
+  }
+}
+
+/// Primary elevated button
+class PrimaryButtonTextStyle extends StatelessWidget {
+  final String text;
+  const PrimaryButtonTextStyle({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 18,
+        color: Color.fromARGB(255, 255, 255, 255),
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
+/// Secondairy outlined button
+class SecondairyButtonTextStyle extends StatelessWidget {
+  final String text;
+  const SecondairyButtonTextStyle({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 18,
+        color: Color.fromARGB(255, 0, 0, 0),
+        fontWeight: FontWeight.normal,
+      ),
     );
   }
 }
