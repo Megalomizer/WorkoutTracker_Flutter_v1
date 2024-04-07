@@ -1,5 +1,4 @@
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
-import 'package:workouttracker/MVVM/Widgets/maindrawer.dart'; // Import standard drawer
 
 class AllSchedules extends StatefulWidget {
   const AllSchedules({super.key});
@@ -67,7 +66,7 @@ class _AllSchedulesState extends State<AllSchedules> {
           ),
         ),
       ),
-      drawer: const MainDrawer(),
+      drawer: const DrawerPreset(),
     );
   }
 }

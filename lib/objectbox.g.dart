@@ -73,7 +73,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(2, 6002293373422659904),
       name: 'TrainingsElement',
-      lastPropertyId: const obx_int.IdUid(9, 8011281624134834194),
+      lastPropertyId: const obx_int.IdUid(10, 3241992577354177632),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -123,7 +123,12 @@ final _entities = <obx_int.ModelEntity>[
             type: 11,
             flags: 520,
             indexId: const obx_int.IdUid(4, 724633429074839309),
-            relationTarget: 'TrainingsSchedule')
+            relationTarget: 'TrainingsSchedule'),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(10, 3241992577354177632),
+            name: 'duration',
+            type: 6,
+            flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
       backlinks: <obx_int.ModelBacklink>[]),
@@ -305,7 +310,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final descriptionOffset = object.description == null
               ? null
               : fbb.writeString(object.description!);
-          fbb.startTable(10);
+          fbb.startTable(11);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addOffset(2, descriptionOffset);
@@ -315,6 +320,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           fbb.addInt64(6, object.kcal);
           fbb.addBool(7, object.locationSpecific);
           fbb.addInt64(8, object.schedule.targetId);
+          fbb.addInt64(9, object.duration);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -332,11 +338,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
             ..iterations =
                 const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0)
             ..weight =
-                const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14)
-            ..kcal =
-                const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 16)
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0)
+            ..kcal = const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0)
             ..locationSpecific =
-                const fb.BoolReader().vTableGet(buffer, rootOffset, 18, false);
+                const fb.BoolReader().vTableGet(buffer, rootOffset, 18, false)
+            ..duration =
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0);
           object.schedule.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
           object.schedule.attach(store);
@@ -497,6 +504,10 @@ class TrainingsElement_ {
   static final schedule =
       obx.QueryRelationToOne<TrainingsElement, TrainingsSchedule>(
           _entities[1].properties[8]);
+
+  /// see [TrainingsElement.duration]
+  static final duration =
+      obx.QueryIntegerProperty<TrainingsElement>(_entities[1].properties[9]);
 }
 
 /// [TrainingsSchedule] entity fields to define ObjectBox queries.

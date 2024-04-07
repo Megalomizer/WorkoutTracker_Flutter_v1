@@ -1,10 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:path/path.dart';
 import 'package:workouttracker/abstracts/fileimports.dart';
 
-const double? _rowseperation = 37;
-const double? _formfieldwidth = 125;
+const double? _rowseperation = 15;
+const double? _formfieldwidth = 300;
+const double? _dropdownHeight = 200;
+const int _dropdownLength = 15;
+
 int dropdownMenuDurationSelection = 0;
 
 class CreateElement extends StatefulWidget {
@@ -16,13 +18,13 @@ class CreateElement extends StatefulWidget {
 
 class _CreateElementState extends State<CreateElement> {
   // properties
-  String? new_name = '';
-  String? new_description = '';
-  int? new_sets = 1;
-  int? new_iterations = 1;
-  Duration new_duration = const Duration(minutes: 0);
-  int? new_weight = 0;
-  int? new_kcal = 0;
+  String new_name = '';
+  String new_description = '';
+  int new_sets = 1;
+  int new_iterations = 1;
+  int new_duration = 0;
+  int new_weight = 0;
+  int new_kcal = 0;
   bool new_locationspecific = false;
 
   // controllers
@@ -52,13 +54,14 @@ class _CreateElementState extends State<CreateElement> {
   @override
   Widget build(BuildContext context) {
     void _createElement () {
+      // FIXME: Add restrictions and feedback for user -> Name & duration = required | kcal/weight => only int
       TrainingsElement createdElement = TrainingsElement();
       createdElement.name = name_controller.text;
       createdElement.description = description_controller.text;
-      createdElement.sets = int.parse(sets_controller.text);
-      createdElement.iterations = int.parse(iterations_controller.text);
-      createdElement.kcal = int.parse(kcal_controller.text);
-      createdElement.weight = int.parse(weight_controller.text);
+      createdElement.sets = new_sets;
+      createdElement.iterations = new_iterations;
+      if (int.tryParse(kcal_controller.text) != null) createdElement.kcal = int.parse(kcal_controller.text);
+      if (int.tryParse(weight_controller.text) != null) createdElement.weight = int.parse(weight_controller.text);
       createdElement.duration = new_duration;
       createdElement.locationSpecific = new_locationspecific;
 
@@ -66,24 +69,15 @@ class _CreateElementState extends State<CreateElement> {
       Navigator.pop(context);
     }
 
-    Future<void> _selectTimeDuration () async {
-      TimeOfDay _time = const TimeOfDay(hour: 0, minute: 0);
-      final TimeOfDay? newTime = await showTimePicker(
-        context: context,
-        initialTime: _time,
-      );
-      if(newTime != null) {
-        setState(() {
-          _time = newTime;
-          new_duration = Duration(hours: _time.hour, minutes: _time.minute);
-        });
-      }
-    }
-
     // Fill list for dropdown menu items
-    List<DropdownMenuEntry> numericDropdownMenuItems = [];
-    for (int i = 0; i <= 120; i++) {
-      numericDropdownMenuItems.add(DropdownMenuEntry(value: i, label: "$i minutes"));
+    List<DropdownMenuEntry> numericDropdownMenuDuration = [];
+    List<DropdownMenuEntry> numericDropdownMenuSets = [];
+    List<DropdownMenuEntry> numericDropdownMenuIterations = [];
+
+    for (int i = 1; i <= _dropdownLength; i++) {
+      numericDropdownMenuDuration.add(DropdownMenuEntry(value: i, label: "$i minutes"));
+      numericDropdownMenuSets.add(DropdownMenuEntry(value: i, label: "$i sets"));
+      numericDropdownMenuIterations.add(DropdownMenuEntry(value: i, label: "$i iterations"));
     }
 
     return Scaffold(
@@ -103,10 +97,11 @@ class _CreateElementState extends State<CreateElement> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                /// NAME
                 TextFormField(
                   decoration: InputDecoration(
                     border: const UnderlineInputBorder(),
-                    labelText: "Enter a name",
+                    labelText: "Name of Element",
                     labelStyle: LabelTextInputDecoration(),
                     errorMaxLines: 1,
                   ),
@@ -114,127 +109,102 @@ class _CreateElementState extends State<CreateElement> {
                   keyboardType: TextInputType.name,
                   controller: name_controller,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 20,),
-                        FormElementTitleText(text: "Amount of sets:"),
-                        SizedBox(height: _rowseperation,),
-                        FormElementTitleText(text: "Amount of iterations:"),
-                        SizedBox(height: _rowseperation,),
-                        FormElementTitleText(text: "Weight in Kg:"),
-                        SizedBox(height: _rowseperation,),
-                        FormElementTitleText(text: "Amount of Kcal:"),
-                        SizedBox(height: _rowseperation,),
-                        FormElementTitleText(text: "Location specific:"),
-                        SizedBox(height: _rowseperation,),
-                        FormElementTitleText(text: "Duration:"),
-                      ],
-                    ),
-                    const Column(
-                      children: <Widget>[
-                        SizedBox(width: 30,),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: _formfieldwidth,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Sets',
-                              labelStyle: LabelTextInputDecoration(),
-                              errorMaxLines: 1,
-                            ),  
-                            style: FormTextInputField(),
-                              keyboardType: TextInputType.number,
-                            controller: sets_controller,
-                          ),
-                        ),
-                        SizedBox(
-                          width: _formfieldwidth,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Iterations',
-                              labelStyle: LabelTextInputDecoration(),
-                              errorMaxLines: 1,
-                            ),
-                            style: FormTextInputField(),
-                            keyboardType: TextInputType.number,
-                            controller: iterations_controller,
-                          ),
-                        ),
-                        SizedBox(
-                          width: _formfieldwidth,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Weight in Kg',
-                              labelStyle: LabelTextInputDecoration(),
-                              errorMaxLines: 1,
-                            ),  
-                            style: FormTextInputField(),
-                            keyboardType: TextInputType.number,
-                            controller: weight_controller,
-                          ),
-                        ),
-                        SizedBox(
-                          width: _formfieldwidth,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                              labelText: 'Amount of Kcal',
-                              labelStyle: LabelTextInputDecoration(),
-                              errorMaxLines: 1,
-                            ),
-                            style: FormTextInputField(),
-                            keyboardType: TextInputType.number,
-                            controller: kcal_controller,
-                          ),
-                        ),
-                        Switch(
-                          value: new_locationspecific,
-                          onChanged: (bool value) {
-                            setState(() {
-                              new_locationspecific = !new_locationspecific;
-                            });
-                          },
-                        ),
-                        // OutlinedButton(
-                        //   onPressed: _selectTimeDuration,
-                        //   child: SecondairyButtonTextStyle(text: "${new_duration.inMinutes} minutes",)
-                        // ),
-                        DropdownMenu(
-                          dropdownMenuEntries: numericDropdownMenuItems,
-                          initialSelection: dropdownMenuDurationSelection,
-                          controller: duration_controller,
-                          label: const Text("Duration"),
-                          onSelected: (selectedDuration) {
-                            setState(() {
-                              dropdownMenuDurationSelection = selectedDuration;
-                              new_duration = Duration(minutes: selectedDuration);
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
+                const SizedBox(height: _rowseperation,),
+                /// SETS
+                DropdownMenu(
+                  dropdownMenuEntries: numericDropdownMenuSets,
+                  initialSelection: new_sets,
+                  controller: sets_controller,
+                  label: const Text("Sets"),
+                  menuHeight: _dropdownHeight,
+                  width: _formfieldwidth,
+                  onSelected: (selectedSets) {
+                    setState(() {
+                      new_sets = selectedSets;
+                    });
+                  },
                 ),
                 const SizedBox(height: _rowseperation,),
-                const FormElementTitleText(text: "Description:"),
+                /// ITERATIONS
+                DropdownMenu(
+                  dropdownMenuEntries: numericDropdownMenuIterations,
+                  initialSelection: new_iterations,
+                  controller: iterations_controller,
+                  label: const Text("Iterations"),
+                  menuHeight: _dropdownHeight,
+                  width: _formfieldwidth,
+                  onSelected: (selectedIteration) {
+                    setState(() {
+                      new_iterations = selectedIteration;
+                    });
+                  },
+                ),
+                const SizedBox(height: _rowseperation,),
+                /// WEIGHT IN KG
+                SizedBox(
+                  width: _formfieldwidth,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      labelText: 'Weight in Kg',
+                      labelStyle: LabelTextInputDecoration(),
+                      errorMaxLines: 1,
+                    ),  
+                    style: FormTextInputField(),
+                    keyboardType: TextInputType.number,
+                    controller: weight_controller,
+                  ),
+                ),
+                const SizedBox(height: _rowseperation,),
+                /// KCAL
+                SizedBox(
+                  width: _formfieldwidth,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: const UnderlineInputBorder(),
+                      labelText: 'Amount of Kcal burned',
+                      labelStyle: LabelTextInputDecoration(),
+                      errorMaxLines: 1,
+                    ),
+                    style: FormTextInputField(),
+                    keyboardType: TextInputType.number,
+                    controller: kcal_controller,
+                  ),
+                ),
+                const SizedBox(height: _rowseperation,),
+                /// LOCATIONSPECIFIC
+                CheckboxListTile(
+                  title: const Text("Element only in BasicFit Heerlen"),
+                  value: new_locationspecific,
+                  onChanged: (newValue) {
+                    setState(() {
+                      new_locationspecific = !new_locationspecific;
+                    });
+                  },
+                  controlAffinity: ListTileControlAffinity.leading,
+                ),
+                const SizedBox(height: _rowseperation,),
+                /// ELEMENT DURATION
+                DropdownMenu(
+                  dropdownMenuEntries: numericDropdownMenuDuration,
+                  initialSelection: dropdownMenuDurationSelection,
+                  controller: duration_controller,
+                  label: const Text("Duration of the element in minutes"),
+                  menuHeight: _dropdownHeight,
+                  width: _formfieldwidth,
+                  onSelected: (selectedDuration) {
+                    setState(() {
+                      dropdownMenuDurationSelection = selectedDuration;
+                      new_duration = selectedDuration;
+                    });
+                  },
+                ),
+                const SizedBox(height: _rowseperation,),
+                /// ELEMENT DESCRIPTION
                 TextFormField(
                   decoration: InputDecoration(
                     border: const UnderlineInputBorder(),
-                    labelText: 'Describe the element',
+                    labelText: 'Element Description',
                     labelStyle: LabelTextInputDecoration(),
                   ),
                   maxLines: null,
@@ -242,7 +212,7 @@ class _CreateElementState extends State<CreateElement> {
                   keyboardType: TextInputType.multiline,
                   controller: description_controller,
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: _rowseperation,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,

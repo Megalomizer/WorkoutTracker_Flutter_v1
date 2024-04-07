@@ -1,17 +1,14 @@
 import 'package:workouttracker/abstracts/pageimports.dart'; // All pages imported
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
-import 'package:workouttracker/abstracts/databaseconfig.dart';
+import 'package:workouttracker/abstracts/databaseconfig.dart'; // Database
 
-import 'package:workouttracker/MVVM/Widgets/maindrawer.dart';
-import 'package:workouttracker/MVVM/Widgets/mainbody.dart';
-
-// Provides acces to the db throughout the app
+/// Provides acces to the db throughout the app
 late ObjectBox box;
 
-// General / Active user
+/// General / Active user
 Trainee? activeUser;
 
-// Entry point into the application -> The very first beginning
+/// Entry point into the application -> The very first beginning
 Future<void> main() async {
   // Avoid errors caused by flutter upgrade & so objectbox can get the app directory to store the db in
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,8 +32,9 @@ Future<void> main() async {
   runApp(MaterialApp(
     title: 'Workout Tracker',
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 90, 10, 175)),
+      colorScheme: ColorScheme.fromSeed(seedColor: color_primary),
       useMaterial3: true,
+      fontFamily: 'WorkSans',
     ),
     home: MyAppHome(),
     routes: <String, WidgetBuilder>{
@@ -49,7 +47,7 @@ Future<void> main() async {
   ));
 } 
 
-// Main app home
+/// Main app home screen
 class MyAppHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -59,7 +57,52 @@ class MyAppHome extends StatelessWidget {
         title: const AppBarTitleText(text: 'Homescreen'),
       ),
       body: const MainBody(),
-      drawer: const MainDrawer(),
+      drawer: const DrawerPreset(),
+    );
+  }
+}
+
+/// Main app home screen body
+class MainBody extends StatelessWidget {
+  //final BuildContext context;
+  const MainBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 30,
+        top: 20,
+        right: 30,
+        bottom: 10,
+      ),
+      child: Column(
+        children: <Widget>[
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/schedules'
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 90, 10, 175),
+                shape: const RoundedRectangleBorder(),
+                elevation: 10,
+              ),
+              child: const Text(
+                "Show all schedules",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

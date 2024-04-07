@@ -1,7 +1,7 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:workouttracker/abstracts/fileimports.dart';
 import 'package:workouttracker/main.dart';
-import 'package:workouttracker/MVVM/Widgets/listitem.dart';
+import 'package:workouttracker/Widgets/listitem.dart';
 
 import './trainingsschedule.dart';
 
@@ -17,9 +17,9 @@ class TrainingsElement implements ListItem {
   String? description;
   int sets = 1;
   int iterations = 1;
-  Duration duration = Duration.zero;
-  int? weight;
-  int? kcal;
+  int duration = 0; // WONT SAVE
+  int weight = 0;
+  int kcal = 0;
   bool locationSpecific = false;
   
   final schedule = ToOne<TrainingsSchedule>(); // 1:N
@@ -37,7 +37,7 @@ class TrainingsElement implements ListItem {
           children: <Widget>[
             const ListItemContextStart(text: 'Duration'),
             const SizedBox(width: 20,),
-            ListItemContextEnd(text: '${duration.inMinutes} minutes'),
+            ListItemContextEnd(text: '$duration minutes'),
           ],
         ),
         TableRow(
@@ -58,6 +58,7 @@ class TrainingsElement implements ListItem {
 
 // Put a new object in the db box
 void putElement(TrainingsElement element) {
+  if (element.name == null || element.name == "") return;
   box.elementBox.put(element);
 }
 

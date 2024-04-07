@@ -55,7 +55,7 @@
     },
     {
       "id": "2:6002293373422659904",
-      "lastPropertyId": "9:8011281624134834194",
+      "lastPropertyId": "10:3241992577354177632",
       "name": "TrainingsElement",
       "properties": [
         {
@@ -108,6 +108,11 @@
           "flags": 520,
           "indexId": "4:724633429074839309",
           "relationTarget": "TrainingsSchedule"
+        },
+        {
+          "id": "10:3241992577354177632",
+          "name": "duration",
+          "type": 6
         }
       ],
       "relations": []

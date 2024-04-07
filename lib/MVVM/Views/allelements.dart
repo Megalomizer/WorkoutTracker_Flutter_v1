@@ -1,5 +1,4 @@
 import 'package:workouttracker/abstracts/fileimports.dart';
-import 'package:workouttracker/MVVM/Widgets/maindrawer.dart';
 
 class AllElements extends StatefulWidget {
   const AllElements({super.key});
@@ -61,7 +60,7 @@ class _AllElementsState extends State<AllElements> {
           ),
         ),
       ),
-      drawer: const MainDrawer(),
+      drawer: const DrawerPreset(),
     );
   }
 }

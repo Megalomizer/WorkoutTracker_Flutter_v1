@@ -1,6 +1,5 @@
-import 'package:workouttracker/MVVM/Widgets/textstyles.dart';
+import 'package:workouttracker/Widgets/textstyles.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
-import 'package:workouttracker/MVVM/Widgets/maindrawer.dart';
 import 'package:workouttracker/objectbox.g.dart'; // Import standard drawer
 
 class ScheduleDetails extends StatelessWidget {

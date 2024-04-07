@@ -1,6 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:workouttracker/abstracts/fileimports.dart';
-import 'package:workouttracker/MVVM/Widgets/listitem.dart';
+import 'package:workouttracker/Widgets/listitem.dart';
 
 @Entity()
 class TrainingsSchedule implements ListItem {
