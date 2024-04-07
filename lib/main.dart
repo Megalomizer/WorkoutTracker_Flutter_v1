@@ -54,7 +54,7 @@ class MyAppHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarTitleText(text: 'Homescreen'),
+        title: const AppBarHeaderTextStyle(text: 'Homescreen'),
       ),
       body: const MainBody(),
       drawer: const DrawerPreset(),
@@ -80,25 +80,9 @@ class MainBody extends StatelessWidget {
         children: <Widget>[
           Center(
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  '/schedules'
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 90, 10, 175),
-                shape: const RoundedRectangleBorder(),
-                elevation: 10,
-              ),
-              child: const Text(
-                "Show all schedules",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-              ),
+              onPressed: () => Navigator.pushNamed(context, '/schedules'),
+              style: primairyButtonStyle,
+              child: const PrimairyButtonTextStyle(text: 'Show all schedules'),
             ),
           ),
         ],

@@ -21,17 +21,12 @@ class _AllSchedulesState extends State<AllSchedules> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarTitleText(text: 'All Schedules'),
+        title: const AppBarHeaderTextStyle(text: 'All Schedules'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Add new schedule',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/schedules/create',
-              );
-            },
+            onPressed: () => Navigator.pushNamed(context, '/schedules/create',),
           ),
         ],
       ),
@@ -54,13 +49,7 @@ class _AllSchedulesState extends State<AllSchedules> {
                 subtitle: schedule.buildContext(context),
                 tileColor: const Color.fromARGB(255, 175, 175, 175),
                 horizontalTitleGap: 10,
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/schedules/details',
-                    arguments: schedule, //pass the TrainingsSchedule as an argument
-                  );
-                },
+                onTap: () => Navigator.pushNamed(context, '/schedules/details', arguments: schedule,),
               );
             },
           ),

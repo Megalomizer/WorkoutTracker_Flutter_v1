@@ -54,7 +54,6 @@ class _CreateElementState extends State<CreateElement> {
   @override
   Widget build(BuildContext context) {
     void _createElement () {
-      // FIXME: Add restrictions and feedback for user -> Name & duration = required | kcal/weight => only int
       TrainingsElement createdElement = TrainingsElement();
       createdElement.name = name_controller.text;
       createdElement.description = description_controller.text;
@@ -83,7 +82,7 @@ class _CreateElementState extends State<CreateElement> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarTitleText(text: 'Create an trainingselement'),
+        title: const AppBarHeaderTextStyle(text: 'Create a trainingselement'),
       ),
       body: Form(
         key: _formKey,
@@ -115,7 +114,7 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuSets,
                   initialSelection: new_sets,
                   controller: sets_controller,
-                  label: const Text("Sets"),
+                  label: const RegularTextStyle(text: 'Sets'),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedSets) {
@@ -130,7 +129,7 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuIterations,
                   initialSelection: new_iterations,
                   controller: iterations_controller,
-                  label: const Text("Iterations"),
+                  label: const RegularTextStyle(text: 'Iterations'),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedIteration) {
@@ -174,7 +173,7 @@ class _CreateElementState extends State<CreateElement> {
                 const SizedBox(height: _rowseperation,),
                 /// LOCATIONSPECIFIC
                 CheckboxListTile(
-                  title: const Text("Element only in BasicFit Heerlen"),
+                  title: const RegularTextStyle(text: 'Element only in BasicFit Heerlen'),
                   value: new_locationspecific,
                   onChanged: (newValue) {
                     setState(() {
@@ -189,7 +188,7 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuDuration,
                   initialSelection: dropdownMenuDurationSelection,
                   controller: duration_controller,
-                  label: const Text("Duration of the element in minutes"),
+                  label: const RegularTextStyle(text: 'Duration of the element in minutes'),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedDuration) {
@@ -218,16 +217,12 @@ class _CreateElementState extends State<CreateElement> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateColor.resolveWith((states) => const Color.fromARGB(255, 80, 15, 110)),
-                      ),
+                      style: primairyButtonStyle,
                       onPressed: _createElement,
-                      child: const PrimaryButtonTextStyle(text: "Create Element"),
+                      child: const PrimairyButtonTextStyle(text: "Create Element"),
                     ),
                     OutlinedButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateColor.resolveWith((states) => const Color.fromARGB(255, 80, 15, 110)),
-                      ),
+                      style: secondairyButtonStyle,
                       onPressed: () => Navigator.pop(context),
                       child: const SecondairyButtonTextStyle(text: "Cancel"),
                     ),

@@ -21,17 +21,12 @@ class _AllElementsState extends State<AllElements> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarTitleText(text: 'All Trainingselements'),
+        title: const AppBarHeaderTextStyle(text: 'All Trainingselements'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Add new trainingselement',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/elements/create',
-              );
-            },
+            onPressed: () => Navigator.pushNamed(context, '/elements/create', ),
           ),
         ],
       ),

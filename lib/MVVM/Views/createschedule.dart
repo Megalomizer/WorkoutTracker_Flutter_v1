@@ -28,7 +28,10 @@ class _CreateScheduleState extends State<CreateSchedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const AppBarHeaderTextStyle(text: 'Create a new Schedule'),
+      ),
       body: Form(
         key: _formKey,
         child: Container(
@@ -42,7 +45,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const FormElementTitleText(text: 'Schedule name'),
+              const RegularTextStyle(text: 'Schedule name'),
               TextFormField(
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
@@ -52,7 +55,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
                 controller: name_controller,
               ),
               const SizedBox(height: 20,),
-              const FormElementTitleText(text: 'Schedule location specific'),
+              const RegularTextStyle(text: 'Schedule location specific'),
               Switch(
                 value: new_locationspecific,
                 onChanged: (bool newValue) {
@@ -70,13 +73,15 @@ class _CreateScheduleState extends State<CreateSchedule> {
                       _createSchedule();
                       Navigator.pop(context);
                     },
-                    child: const Text("Create"),
+                    style: primairyButtonStyle,
+                    child: const PrimairyButtonTextStyle(text: 'Create'),
                   ),
                   OutlinedButton( // Cancel creation
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Cancel"),
+                    style: secondairyButtonStyle,
+                    child: const SecondairyButtonTextStyle(text: 'Cancel'),
                   ),
                 ],
               ),
