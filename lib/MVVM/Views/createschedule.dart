@@ -29,7 +29,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: color_primary,
         title: const Text(
           'Create a new Schedule',
           style: appBarHeaderTextStyle

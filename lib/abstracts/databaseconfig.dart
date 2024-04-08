@@ -1,13 +1,7 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:workouttracker/objectbox.g.dart'; // created by `flutter pub run build_runner build`
-import 'package:path/path.dart';
+import 'package:workouttracker/abstracts/fileimports.dart';
 
-import 'package:workouttracker/MVVM/Models/trainee.dart';
-import 'package:workouttracker/MVVM/Models/traininghistoryschedules.dart';
-import 'package:workouttracker/MVVM/Models/trainingselement.dart';
-import 'package:workouttracker/MVVM/Models/trainingsschedule.dart';
-
-import 'package:objectbox/objectbox.dart';
 /// To Config objectbox after changing the objectmodels run:
 /// flutter pub run build_runner build
 

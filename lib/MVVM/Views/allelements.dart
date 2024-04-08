@@ -20,10 +20,9 @@ class _AllElementsState extends State<AllElements> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        //title: const AppBarHeaderTextStyle(text: 'All Trainingselements'),
+        backgroundColor: color_primary,
         title: const Text(
-          'All Trainingselements',
+          'All Exercises',
           style: appBarHeaderTextStyle,
           textAlign: TextAlign.start,
         ),

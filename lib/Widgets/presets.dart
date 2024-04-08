@@ -19,15 +19,14 @@ const color_white = Color.fromRGBO(255, 255, 255, 1);
 /// Primairy *Elevated* Button
 final primairyButtonStyle = ElevatedButton.styleFrom(
   backgroundColor: color_primary,
-  elevation: 8.0,
   shape: const StadiumBorder(),
 );
 
 /// Secondairy *Outlined* Button
 final secondairyButtonStyle = OutlinedButton.styleFrom(
   side: const BorderSide(
-    width: 5.0,
     color: color_primary,
+    width: 1.0,
   ),
 );
 //----------------------------------------------------\\
@@ -35,7 +34,7 @@ final secondairyButtonStyle = OutlinedButton.styleFrom(
 //------------------ Text Styles ------------------\\
 /// Appbar Header
 const appBarHeaderTextStyle = TextStyle(
-  fontSize: 32,
+  fontSize: 24,
   fontWeight: FontWeight.w500,
   color: color_secondairy,
 );
@@ -63,7 +62,7 @@ const regularTextStyle = TextStyle(
 
 /// Drawer Header
 const drawerHeaderTextStyle = TextStyle(
-  fontSize: 42,
+  fontSize: 60,
   fontWeight: FontWeight.w700,
   color: color_secondairy,
 );
@@ -85,7 +84,7 @@ const primairyButtonTextStyle = TextStyle(
 /// Secondairy Button Text
 const secondairyButtonTextStyle = TextStyle(
   fontSize: 18,
-  fontWeight: FontWeight.w200,
+  fontWeight: FontWeight.w400,
   color: color_primary,
 );
 //-------------------------------------------------\\
@@ -108,8 +107,8 @@ class DrawerPreset extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.zero,
                 topRight: Radius.zero,
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
+                bottomLeft: Radius.zero,//Radius.circular(15),
+                bottomRight: Radius.zero,
               ),
             ),
             child: TextButton(
@@ -118,7 +117,7 @@ class DrawerPreset extends StatelessWidget {
               },
               child: const Text(
                 'Home',
-                style: drawerElementTextStyle,
+                style: drawerHeaderTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),

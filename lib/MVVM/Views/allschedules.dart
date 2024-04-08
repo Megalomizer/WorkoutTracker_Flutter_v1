@@ -20,7 +20,7 @@ class _AllSchedulesState extends State<AllSchedules> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: color_primary,
         title: const Text(
           'All Schedules',
           style: appBarHeaderTextStyle,

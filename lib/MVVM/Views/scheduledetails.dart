@@ -8,6 +8,7 @@ class ScheduleDetails extends StatelessWidget {
     final TrainingsSchedule selectedSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: color_primary,
         title: const Text(
           'Schedule details',
           style: appBarHeaderTextStyle,

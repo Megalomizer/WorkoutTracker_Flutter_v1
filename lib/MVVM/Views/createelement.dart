@@ -81,9 +81,9 @@ class _CreateElementState extends State<CreateElement> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: color_primary,
         title: const Text(
-          'Create a trainingselement',
+          'Create an Exercise',
           style: appBarHeaderTextStyle,
         ),
       ),
