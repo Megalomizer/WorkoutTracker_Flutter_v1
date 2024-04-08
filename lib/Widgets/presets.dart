@@ -87,6 +87,14 @@ const secondairyButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w400,
   color: color_primary,
 );
+
+/// Card Title
+const cardTitleStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w700,
+  color: color_primary,
+);
+
 //-------------------------------------------------\\
 
 //------------------ Custom Widgets ------------------\\

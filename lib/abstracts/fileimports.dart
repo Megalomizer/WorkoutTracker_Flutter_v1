@@ -14,5 +14,4 @@ export 'package:path/path.dart'; // Paths for files
 export 'dart:async'; // Async functions
 
 // Custom Widgets
-export 'package:workouttracker/Widgets/textstyles.dart' hide SecondairyButtonTextStyle;
 export 'package:workouttracker/Widgets/presets.dart'; // Colors, widgets and textstyles

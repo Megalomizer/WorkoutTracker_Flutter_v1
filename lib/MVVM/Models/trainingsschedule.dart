@@ -19,7 +19,10 @@ class TrainingsSchedule implements ListItem {
   /// Implement Widget from ListItem
   @override
   Widget buildTitle(BuildContext context) {
-    return ListItemTitle(text: name);
+    return Text(
+      name,
+      style: cardTitleStyle,
+    );
   }
 
   @override
@@ -28,16 +31,28 @@ class TrainingsSchedule implements ListItem {
       children: <TableRow>[
         TableRow(
           children: <Widget>[
-            const ListItemContextStart(text: 'Duration'),
+            const Text(
+              'Duration',
+              style: regularTextStyle,
+            ),
             const SizedBox(width: 20,),
-            ListItemContextEnd(text: '$duration minutes'),
+            Text(
+              '$duration minutes',
+              style: regularTextStyle
+            ),
           ],
         ),
         TableRow(
           children: <Widget>[
-            const ListItemContextStart(text: 'Kcal'),
+            const Text(
+              'Kcal',
+              style: regularTextStyle,
+            ),
             const SizedBox(width: 20,),
-            ListItemContextEnd(text: '$kcal kcal'),
+            Text(
+              '$kcal kcal',
+              style: regularTextStyle,
+            ),
           ],
         ),
       ],

@@ -101,13 +101,13 @@ class _CreateElementState extends State<CreateElement> {
               children: [
                 /// NAME
                 TextFormField(
-                  decoration: InputDecoration(
-                    border: const UnderlineInputBorder(),
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
                     labelText: "Name of Element",
-                    labelStyle: LabelTextInputDecoration(),
+                    labelStyle: regularTextStyle,
                     errorMaxLines: 1,
                   ),
-                  style: FormTextInputField(),
+                  style: regularTextStyle,
                   keyboardType: TextInputType.name,
                   controller: name_controller,
                 ),
@@ -152,13 +152,13 @@ class _CreateElementState extends State<CreateElement> {
                 SizedBox(
                   width: _formfieldwidth,
                   child: TextFormField(
-                    decoration: InputDecoration(
-                      border: const UnderlineInputBorder(),
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
                       labelText: 'Weight in Kg',
-                      labelStyle: LabelTextInputDecoration(),
+                      labelStyle: regularTextStyle,
                       errorMaxLines: 1,
                     ),  
-                    style: FormTextInputField(),
+                    style: regularTextStyle,
                     keyboardType: TextInputType.number,
                     controller: weight_controller,
                   ),
@@ -168,13 +168,13 @@ class _CreateElementState extends State<CreateElement> {
                 SizedBox(
                   width: _formfieldwidth,
                   child: TextFormField(
-                    decoration: InputDecoration(
-                      border: const UnderlineInputBorder(),
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
                       labelText: 'Amount of Kcal burned',
-                      labelStyle: LabelTextInputDecoration(),
+                      labelStyle: regularTextStyle,
                       errorMaxLines: 1,
                     ),
-                    style: FormTextInputField(),
+                    style: regularTextStyle,
                     keyboardType: TextInputType.number,
                     controller: kcal_controller,
                   ),
@@ -216,13 +216,13 @@ class _CreateElementState extends State<CreateElement> {
                 const SizedBox(height: _rowseperation,),
                 /// ELEMENT DESCRIPTION
                 TextFormField(
-                  decoration: InputDecoration(
-                    border: const UnderlineInputBorder(),
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
                     labelText: 'Element Description',
-                    labelStyle: LabelTextInputDecoration(),
+                    labelStyle: regularTextStyle,
                   ),
                   maxLines: null,
-                  style: FormTextInputField(),
+                  style: regularTextStyle,
                   keyboardType: TextInputType.multiline,
                   controller: description_controller,
                 ),
