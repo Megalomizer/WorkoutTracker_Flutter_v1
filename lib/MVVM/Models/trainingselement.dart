@@ -1,9 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:workouttracker/abstracts/fileimports.dart';
-import 'package:workouttracker/main.dart';
 import 'package:workouttracker/Widgets/listitem.dart';
-
-import './trainingsschedule.dart';
 
 @Entity()
 class TrainingsElement implements ListItem {
@@ -17,7 +14,7 @@ class TrainingsElement implements ListItem {
   String? description;
   int sets = 1;
   int iterations = 1;
-  int duration = 0; // WONT SAVE
+  int duration = 0;
   int weight = 0;
   int kcal = 0;
   bool locationSpecific = false;

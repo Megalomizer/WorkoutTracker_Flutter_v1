@@ -34,156 +34,60 @@ final secondairyButtonStyle = OutlinedButton.styleFrom(
 
 //------------------ Text Styles ------------------\\
 /// Appbar Header
-class AppBarHeaderTextStyle extends StatelessWidget {
-  final String text;
-  const AppBarHeaderTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.w500,
-        color: color_secondairy,
-      ),
-      textAlign: TextAlign.start,
-    );
-  }
-}
+const appBarHeaderTextStyle = TextStyle(
+  fontSize: 32,
+  fontWeight: FontWeight.w500,
+  color: color_secondairy,
+);
 
 /// Main-Header
-class HeaderTextStyle extends StatelessWidget {
-  final String text;
-  const HeaderTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w700,
-        color: color_black,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-}
+const headerTextStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w700,
+  color: color_black,
+);
 
 /// Sub-Header
-class HeaderSubTextStyle extends StatelessWidget {
-  final String text;
-  const HeaderSubTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w500,
-        color: color_black,
-      ),
-      textAlign: TextAlign.start,
-    );
-  }
-}
+const headerSubTextStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w500,
+  color: color_black,
+);
 
 /// Regular Text
-class RegularTextStyle extends StatelessWidget {
-  final String text;
-  const RegularTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w300,
-        color: color_black,
-      ),
-      textAlign: TextAlign.start,
-    );
-  }
-}
+const regularTextStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w300,
+  color: color_black,
+);
 
 /// Drawer Header
-class DrawerHeaderTextStyle extends StatelessWidget {
-  final String text;
-  const DrawerHeaderTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 42,
-        fontWeight: FontWeight.w700,
-        color: color_secondairy,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-}
+const drawerHeaderTextStyle = TextStyle(
+  fontSize: 42,
+  fontWeight: FontWeight.w700,
+  color: color_secondairy,
+);
 
 /// Drawer Element
-class DrawerElementTextStyle extends StatelessWidget {
-  final String text;
-  const DrawerElementTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w400,
-        color: color_black,
-      ),
-      textAlign: TextAlign.start,
-    );
-  }
-}
+const drawerElementTextStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.w400,
+  color: color_black,
+);
 
 /// Primary Button Text
-class PrimairyButtonTextStyle extends StatelessWidget {
-  final String text;
-  const PrimairyButtonTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: color_secondairy,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-}
+const primairyButtonTextStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+  color: color_secondairy,
+);
 
 /// Secondairy Button Text
-class SecondairyButtonTextStyle extends StatelessWidget {
-  final String text;
-  const SecondairyButtonTextStyle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w200,
-        color: color_primary,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-}
+const secondairyButtonTextStyle = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w200,
+  color: color_primary,
+);
 //-------------------------------------------------\\
 
 //------------------ Custom Widgets ------------------\\
@@ -212,11 +116,18 @@ class DrawerPreset extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
-              child: const DrawerHeaderTextStyle(text: 'Home'),
+              child: const Text(
+                'Home',
+                style: drawerElementTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           ListTile(
-            title: const DrawerElementTextStyle(text: 'All Schedules'),
+            title: const Text(
+              "All Schedules",
+              style: drawerElementTextStyle,
+            ),
             onTap: () => {
               Navigator.pushNamed(
                 context,
@@ -225,7 +136,10 @@ class DrawerPreset extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const DrawerElementTextStyle(text: 'All Elements'),
+            title: const Text(
+              'All Elements',
+              style: drawerElementTextStyle,
+            ),
             onTap: () {
               Navigator.pushNamed(
                 context,

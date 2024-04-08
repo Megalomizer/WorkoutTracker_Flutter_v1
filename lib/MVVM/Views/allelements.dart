@@ -21,7 +21,12 @@ class _AllElementsState extends State<AllElements> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarHeaderTextStyle(text: 'All Trainingselements'),
+        //title: const AppBarHeaderTextStyle(text: 'All Trainingselements'),
+        title: const Text(
+          'All Trainingselements',
+          style: appBarHeaderTextStyle,
+          textAlign: TextAlign.start,
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),

@@ -9,7 +9,7 @@ class TrainingsSchedule implements ListItem {
   int id = 0;
   @Index(type: IndexType.value)
   String name = "";
-  Duration duration = Duration.zero;
+  int duration = 0;
   int kcal = 0;
   bool locationSpecific = false;
   @Backlink('schedule')
@@ -19,7 +19,7 @@ class TrainingsSchedule implements ListItem {
   /// Implement Widget from ListItem
   @override
   Widget buildTitle(BuildContext context) {
-    return ListItemTitle(text: name!);
+    return ListItemTitle(text: name);
   }
 
   @override
@@ -30,7 +30,7 @@ class TrainingsSchedule implements ListItem {
           children: <Widget>[
             const ListItemContextStart(text: 'Duration'),
             const SizedBox(width: 20,),
-            ListItemContextEnd(text: '${duration.inMinutes} minutes'),
+            ListItemContextEnd(text: '$duration minutes'),
           ],
         ),
         TableRow(

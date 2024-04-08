@@ -21,7 +21,10 @@ class _AllSchedulesState extends State<AllSchedules> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarHeaderTextStyle(text: 'All Schedules'),
+        title: const Text(
+          'All Schedules',
+          style: appBarHeaderTextStyle,
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -44,12 +47,20 @@ class _AllSchedulesState extends State<AllSchedules> {
             itemCount: allSchedules.length,
             itemBuilder: (context, index) {
               final TrainingsSchedule schedule = allSchedules[index];
-              return ListTile(
-                title: schedule.buildTitle(context),
-                subtitle: schedule.buildContext(context),
-                tileColor: const Color.fromARGB(255, 175, 175, 175),
-                horizontalTitleGap: 10,
-                onTap: () => Navigator.pushNamed(context, '/schedules/details', arguments: schedule,),
+              return Container(
+                margin: const EdgeInsets.only(
+                  left: 0,
+                  top: 1,
+                  right: 1,
+                  bottom: 1,
+                ),
+                child: ListTile(
+                  title: schedule.buildTitle(context),
+                  subtitle: schedule.buildContext(context),
+                  tileColor: Colors.transparent,
+                  horizontalTitleGap: 10,
+                  onTap: () => Navigator.pushNamed(context, '/schedules/details', arguments: schedule,),
+                ),
               );
             },
           ),

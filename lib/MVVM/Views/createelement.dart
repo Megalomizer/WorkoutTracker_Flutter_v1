@@ -2,9 +2,9 @@
 
 import 'package:workouttracker/abstracts/fileimports.dart';
 
-const double? _rowseperation = 15;
-const double? _formfieldwidth = 300;
-const double? _dropdownHeight = 200;
+const double _rowseperation = 15;
+const double _formfieldwidth = 300;
+const double _dropdownHeight = 200;
 const int _dropdownLength = 15;
 
 int dropdownMenuDurationSelection = 0;
@@ -53,7 +53,7 @@ class _CreateElementState extends State<CreateElement> {
 
   @override
   Widget build(BuildContext context) {
-    void _createElement () {
+    void createElement () {
       TrainingsElement createdElement = TrainingsElement();
       createdElement.name = name_controller.text;
       createdElement.description = description_controller.text;
@@ -82,7 +82,10 @@ class _CreateElementState extends State<CreateElement> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarHeaderTextStyle(text: 'Create a trainingselement'),
+        title: const Text(
+          'Create a trainingselement',
+          style: appBarHeaderTextStyle,
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -114,7 +117,10 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuSets,
                   initialSelection: new_sets,
                   controller: sets_controller,
-                  label: const RegularTextStyle(text: 'Sets'),
+                  label: const Text(
+                    'Sets',
+                    style: regularTextStyle,
+                  ),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedSets) {
@@ -129,7 +135,10 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuIterations,
                   initialSelection: new_iterations,
                   controller: iterations_controller,
-                  label: const RegularTextStyle(text: 'Iterations'),
+                  label: const Text(
+                    'Iterations',
+                    style: regularTextStyle,
+                  ),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedIteration) {
@@ -173,7 +182,10 @@ class _CreateElementState extends State<CreateElement> {
                 const SizedBox(height: _rowseperation,),
                 /// LOCATIONSPECIFIC
                 CheckboxListTile(
-                  title: const RegularTextStyle(text: 'Element only in BasicFit Heerlen'),
+                  title: const Text(
+                    'Element only in BasicFit Heerlen',
+                    style: regularTextStyle,
+                  ),
                   value: new_locationspecific,
                   onChanged: (newValue) {
                     setState(() {
@@ -188,7 +200,10 @@ class _CreateElementState extends State<CreateElement> {
                   dropdownMenuEntries: numericDropdownMenuDuration,
                   initialSelection: dropdownMenuDurationSelection,
                   controller: duration_controller,
-                  label: const RegularTextStyle(text: 'Duration of the element in minutes'),
+                  label: const Text(
+                    'Duration of the element in minutes',
+                    style: regularTextStyle,
+                  ),
                   menuHeight: _dropdownHeight,
                   width: _formfieldwidth,
                   onSelected: (selectedDuration) {
@@ -218,13 +233,21 @@ class _CreateElementState extends State<CreateElement> {
                   children: <Widget>[
                     ElevatedButton(
                       style: primairyButtonStyle,
-                      onPressed: _createElement,
-                      child: const PrimairyButtonTextStyle(text: "Create Element"),
+                      onPressed: createElement,
+                      child: const Text(
+                        "Create Element",
+                        style: primairyButtonTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     OutlinedButton(
                       style: secondairyButtonStyle,
                       onPressed: () => Navigator.pop(context),
-                      child: const SecondairyButtonTextStyle(text: "Cancel"),
+                      child: const Text(
+                        "Cancel",
+                        style: secondairyButtonTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),

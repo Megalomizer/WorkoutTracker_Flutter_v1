@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
 
 import 'package:workouttracker/abstracts/fileimports.dart';
 
@@ -30,7 +30,10 @@ class _CreateScheduleState extends State<CreateSchedule> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const AppBarHeaderTextStyle(text: 'Create a new Schedule'),
+        title: const Text(
+          'Create a new Schedule',
+          style: appBarHeaderTextStyle
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -45,7 +48,10 @@ class _CreateScheduleState extends State<CreateSchedule> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const RegularTextStyle(text: 'Schedule name'),
+              const Text(
+                'Schedule name',
+                style: regularTextStyle
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
@@ -55,7 +61,10 @@ class _CreateScheduleState extends State<CreateSchedule> {
                 controller: name_controller,
               ),
               const SizedBox(height: 20,),
-              const RegularTextStyle(text: 'Schedule location specific'),
+              const Text(
+                'Schedule location specific',
+                style: regularTextStyle,
+              ),
               Switch(
                 value: new_locationspecific,
                 onChanged: (bool newValue) {
@@ -74,14 +83,22 @@ class _CreateScheduleState extends State<CreateSchedule> {
                       Navigator.pop(context);
                     },
                     style: primairyButtonStyle,
-                    child: const PrimairyButtonTextStyle(text: 'Create'),
+                    child: const Text(
+                      'Create',
+                      style: primairyButtonTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   OutlinedButton( // Cancel creation
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     style: secondairyButtonStyle,
-                    child: const SecondairyButtonTextStyle(text: 'Cancel'),
+                    child: const Text(
+                      'Cancel',
+                      style: secondairyButtonTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),

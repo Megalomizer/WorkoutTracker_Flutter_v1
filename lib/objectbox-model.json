@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3917838674679280242",
-      "lastPropertyId": "6:8839921143684130920",
+      "lastPropertyId": "7:43885743234571385",
       "name": "HistorySchedule",
       "properties": [
         {
@@ -43,6 +43,11 @@
           "flags": 520,
           "indexId": "2:5471397937120517371",
           "relationTarget": "TrainingsSchedule"
+        },
+        {
+          "id": "7:43885743234571385",
+          "name": "duration",
+          "type": 6
         }
       ],
       "relations": [
@@ -119,7 +124,7 @@
     },
     {
       "id": "3:6635498724338019789",
-      "lastPropertyId": "5:6086135005133280207",
+      "lastPropertyId": "6:810887799420695543",
       "name": "TrainingsSchedule",
       "properties": [
         {
@@ -152,6 +157,11 @@
           "flags": 520,
           "indexId": "6:4478235318709833697",
           "relationTarget": "Trainee"
+        },
+        {
+          "id": "6:810887799420695543",
+          "name": "duration",
+          "type": 6
         }
       ],
       "relations": []

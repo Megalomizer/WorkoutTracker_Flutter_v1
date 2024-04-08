@@ -1,7 +1,4 @@
-import 'package:workouttracker/Widgets/presets.dart';
-import 'package:workouttracker/Widgets/textstyles.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
-import 'package:workouttracker/objectbox.g.dart'; // Import standard drawer
 
 class ScheduleDetails extends StatelessWidget {
   const ScheduleDetails({super.key});
@@ -11,7 +8,10 @@ class ScheduleDetails extends StatelessWidget {
     final TrainingsSchedule selectedSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
     return Scaffold(
       appBar: AppBar(
-        title: const AppBarHeaderTextStyle(text: 'Schedule details'),
+        title: const Text(
+          'Schedule details',
+          style: appBarHeaderTextStyle,
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.delete),
@@ -38,30 +38,58 @@ class ScheduleDetails extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Center(
-              child: HeaderTextStyle(text: selectedSchedule.name),
+              child: Text(
+                selectedSchedule.name,
+                style: headerTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
             Row(
               children: <Widget>[
-                const RegularTextStyle(text: 'Duration:'),
-                RegularTextStyle(text: '${selectedSchedule.duration.inMinutes} minutes'),
+                const Text(
+                  'Duration:',
+                  style: regularTextStyle
+                ),
+                Text(
+                  '${selectedSchedule.duration} minutes',
+                  style: regularTextStyle
+                ),
               ],
             ),
             Row(
               children: <Widget>[
-                const RegularTextStyle(text: 'Kcal:'),
-                RegularTextStyle(text: '${selectedSchedule.kcal} kcal'),
+                const Text(
+                  'Kcal:',
+                  style: regularTextStyle
+                ),
+                Text(
+                  '${selectedSchedule.kcal} kcal',
+                  style: regularTextStyle
+                ),
               ],
             ),
             Row(
               children: <Widget>[
-                const RegularTextStyle(text: 'Location specific:'),
-                RegularTextStyle(text: '${selectedSchedule.locationSpecific}'),
+                const Text(
+                  'Location specific:',
+                  style: regularTextStyle
+                ),
+                Text(
+                  '${selectedSchedule.locationSpecific}',
+                  style: regularTextStyle
+                ),
               ],
             ),
             Row(
               children: <Widget>[
-                const RegularTextStyle(text: 'Trainee:'),
-                RegularTextStyle(text: '${selectedSchedule.trainee}'),
+                const Text(
+                  'Trainee:',
+                  style: regularTextStyle
+                ),
+                Text(
+                  '${selectedSchedule.trainee}',
+                  style: regularTextStyle
+                ),
               ],
             ),
             const Divider(
@@ -72,7 +100,11 @@ class ScheduleDetails extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: primairyButtonStyle,
-              child: const PrimairyButtonTextStyle(text: 'View all trainings elements'),
+              child: const Text(
+                'View all trainings elements',
+                style: primairyButtonTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),

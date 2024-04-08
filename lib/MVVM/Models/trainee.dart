@@ -1,5 +1,4 @@
 import 'package:objectbox/objectbox.dart';
-import 'package:workouttracker/MVVM/temp/firstscreen.dart';
 import 'package:workouttracker/main.dart';
 
 import './trainingsschedule.dart';

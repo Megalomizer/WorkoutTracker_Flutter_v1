@@ -79,7 +79,6 @@ class DrawerListItem extends StatelessWidget {
 
 /// Form labels
 class LabelTextInputDecoration extends TextStyle {
-  @override
   TextStyle build(BuildContext context) {
     return const TextStyle(
       fontSize: 16,
