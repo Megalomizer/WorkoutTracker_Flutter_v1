@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart'; // import flutter package material -> Used to create UI
 import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
+import 'package:path/path.dart';
 
-import './firstscreen.dart';
-import './secondscreen.dart';
-import './thirdscreen.dart';
-import './firstscreendataentry.dart';
+import 'firstscreen.dart';
+import 'secondscreen.dart';
+import 'thirdscreen.dart';
+import 'firstscreendataentry.dart';
+
+import 'package:workouttracker/MVVM/Models/dog.dart'; 
 
 MaterialApp getStartingScreen(BuildContext context){
   return MaterialApp(
@@ -16,7 +19,7 @@ MaterialApp getStartingScreen(BuildContext context){
     ),
     // The inner UI of the application -> We set another widget -> A new class
     home: DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -24,9 +27,6 @@ MaterialApp getStartingScreen(BuildContext context){
             tabs: [
               Tab(
                 icon: Icon(Icons.directions_car),
-              ),
-              Tab(
-                icon: Icon(Icons.view_list),
               ),
               Tab(
                 icon: Icon(Icons.email),
@@ -39,8 +39,7 @@ MaterialApp getStartingScreen(BuildContext context){
         ),
         body: const TabBarView(
           children: [
-            FirstScreen(),  
-            SecondScreen(),
+            FirstScreen(),
             ThirdScreen(),
             DogpageWidget(),
           ],
@@ -63,11 +62,11 @@ MaterialApp getStartingScreen(BuildContext context){
                   textAlign: TextAlign.center,
                 ),
               ),
-              const ListTile(
-                title: Text(
-                  "Tab 1",
+              ListTile(
+                title: const Text(
+                  "AllDogs",
                 ),
-                onTap: onTapProgram,
+                onTap: () {},
               ),
               const ListTile(
                 title: Text(
@@ -86,3 +85,4 @@ MaterialApp getStartingScreen(BuildContext context){
 void onTapProgram(){
   
 }
+

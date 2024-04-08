@@ -30,7 +30,7 @@ class _DogpageWidgetState extends State<DogpageWidget> {
         ),
         SizedBox(
           width: 18,
-          child: SizedBox(
+          child: SizedBox( 
             child: Text('$_favoriteCount'),
           ),
         ),

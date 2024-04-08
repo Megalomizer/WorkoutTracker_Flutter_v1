@@ -1,52 +1,92 @@
-import 'package:flutter/material.dart'; // import flutter package material -> Used to create UI
-import 'package:flutter/widgets.dart'; // Required to avoid errors caused by flutter upgrade
-import 'package:sqflite/sqflite.dart'; // SQlite package
-import 'package:path/path.dart';
-import 'dart:async';
+import 'package:workouttracker/abstracts/pageimports.dart'; // All pages imported
+import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
+import 'package:workouttracker/abstracts/databaseconfig.dart'; // Database
 
-import 'MVVM/Views/startingmainpage.dart';
+/// Provides acces to the db throughout the app
+late ObjectBox box;
 
-// Entry point into the application -> The very first beginning
-void main() {
-  runApp(const MyApp());
+/// General / Active user
+Trainee? activeUser;
 
-  // Avoid errors caused by flutter upgrade.
+/// Entry point into the application -> The very first beginning
+Future<void> main() async {
+  // Avoid errors caused by flutter upgrade & so objectbox can get the app directory to store the db in
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Create and open a SQLite database and store the reference
-  final database = getDatabase();
+  // Initialize the DB
+  box = await ObjectBox.create();
 
-  Future<Database> GetDatabaseInstance() async {
-    return database;
-  }
+  // The boxes with data -> For each class one
+  box.traineeBox = box.store.box<Trainee>();
+  box.schedulesBox = box.store.box<TrainingsSchedule>();
+  box.elementBox = box.store.box<TrainingsElement>();
+  box.historyBox = box.store.box<HistorySchedule>();
+
+  // Configure the general user / active user -> No logging in
+  Trainee activeUser =  Trainee(id: 1);
+  putTrainee(activeUser);
+  Trainee? user = getTrainee(1);
+  if(user != null) activeUser = user;
+
+  // Run the main app widget
+  runApp(MaterialApp(
+    title: 'Workout Tracker',
+    theme: ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: color_primary),
+      useMaterial3: true,
+      fontFamily: 'WorkSans',
+    ),
+    home: MyAppHome(),
+    routes: <String, WidgetBuilder>{
+      '/schedules': (BuildContext context) => const AllSchedules(),
+      '/schedules/details': (BuildContext context) => const ScheduleDetails(),
+      '/schedules/create': (BuildContext context) => const CreateSchedule(),
+      '/elements': (BuildContext context) => const AllElements(),
+      '/elements/create': (BuildContext context) => const CreateElement(),
+    }
+  ));
 } 
 
-// Open the SQLite database and store the reference.
-Future<Database> getDatabase() async {
-  // Set SQLite statements with column names, types and properties
-  String createDogsTable = 'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)';
-
-  // Create and return connection
-  return openDatabase(
-    join(await getDatabasesPath(), 'doggie_database.db'), // Set the path to the database.
-    onCreate: (db, version){
-      // Run the CREATE TABLE statement on the database --> Uses SQLite statements
-      return db.execute(
-        createDogsTable,
-      );
-    },
-    version: 1,
-  );
+/// Main app home screen
+class MyAppHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const AppBarHeaderTextStyle(text: 'Homescreen'),
+      ),
+      body: const MainBody(),
+      drawer: const DrawerPreset(),
+    );
+  }
 }
 
-// TODO: Set a way to add a dog and view all dogs _> maybe also select a dog and edit & delete
+/// Main app home screen body
+class MainBody extends StatelessWidget {
+  //final BuildContext context;
+  const MainBody({super.key});
 
-class MyApp extends StatelessWidget{
-  const MyApp({super.key});
-
-  // this widget is the root of your application
   @override
-  Widget build(BuildContext context){
-    return getStartingScreen(context);
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 30,
+        top: 20,
+        right: 30,
+        bottom: 10,
+      ),
+      child: Column(
+        children: <Widget>[
+          Center(
+            child: ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/schedules'),
+              style: primairyButtonStyle,
+              child: const PrimairyButtonTextStyle(text: 'Show all schedules'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
