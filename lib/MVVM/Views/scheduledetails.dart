@@ -9,8 +9,8 @@ class ScheduleDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color_primary,
-        title: const Text(
-          'Schedule details',
+        title: Text(
+          '${selectedSchedule.name} details',
           style: appBarHeaderTextStyle,
         ),
         actions: <Widget>[

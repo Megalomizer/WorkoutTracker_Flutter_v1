@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 
 class AllSchedules extends StatefulWidget {
@@ -35,9 +36,9 @@ class _AllSchedulesState extends State<AllSchedules> {
       ),
       body: Container(
         margin: const EdgeInsets.only(
-          left: 30,
+          left: 20,
           top: 20,
-          right: 30,
+          right: 20,
           bottom: 10,
         ),
         child: RefreshIndicator(
@@ -50,9 +51,21 @@ class _AllSchedulesState extends State<AllSchedules> {
               return Container(
                 margin: const EdgeInsets.only(
                   left: 0,
-                  top: 1,
-                  right: 1,
-                  bottom: 1,
+                  top: 0,
+                  right: 0,
+                  bottom: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: color_secondairy,
+                  border: Border.all(
+                      color: color_primary,
+                      width: 4.0,
+                      style: BorderStyle.solid,
+                      strokeAlign: BorderSide.strokeAlignInside,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15.0)
+                  ),
                 ),
                 child: ListTile(
                   title: schedule.buildTitle(context),

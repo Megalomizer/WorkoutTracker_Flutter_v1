@@ -24,7 +24,6 @@ class _AllElementsState extends State<AllElements> {
         title: const Text(
           'All Exercises',
           style: appBarHeaderTextStyle,
-          textAlign: TextAlign.start,
         ),
         actions: <Widget>[
           IconButton(
@@ -36,9 +35,9 @@ class _AllElementsState extends State<AllElements> {
       ),
       body: Container(
         margin: const EdgeInsets.only(
-          left: 30,
+          left: 20,
           top: 20,
-          right: 30,
+          right: 20,
           bottom: 10,
         ),
         child: RefreshIndicator(
@@ -48,12 +47,32 @@ class _AllElementsState extends State<AllElements> {
             itemCount: allElements.length,
             itemBuilder: (context, index) {
               final TrainingsElement element = allElements[index];
-              return ListTile(
-                title: element.buildTitle(context),
-                subtitle: element.buildContext(context),
-                tileColor: const Color.fromARGB(255, 175, 175, 175),
-                horizontalTitleGap: 10,
-                onTap: () {},
+              return Container(
+                margin: const EdgeInsets.only(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: color_secondairy,
+                  border: Border.all(
+                      color: color_primary,
+                      width: 4.0,
+                      style: BorderStyle.solid,
+                      strokeAlign: BorderSide.strokeAlignInside,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15.0)
+                  ),
+                ),
+                child: ListTile(
+                  title: element.buildTitle(context),
+                  subtitle: element.buildContext(context),
+                  tileColor: Colors.transparent,
+                  horizontalTitleGap: 10,
+                  onTap: () {},
+                ),
               );
             },
           ),
