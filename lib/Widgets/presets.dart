@@ -8,7 +8,7 @@ const color_primary = Color.fromRGBO(96, 108, 56, 1);
 /// Secondairy color
 const color_secondairy = Color.fromRGBO(254, 250, 224, 1);
 /// Border color
-const color_border = Color.fromRGBO(40, 54, 24, 1);
+const color_tertaire = Color.fromRGBO(200, 200, 170, 1);
 /// Black color
 const color_black = Color.fromRGBO(0, 0, 0, 1);
 /// White color
@@ -43,14 +43,14 @@ const appBarHeaderTextStyle = TextStyle(
 const headerTextStyle = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w700,
-  color: color_black,
+  color: color_primary,
 );
 
 /// Sub-Header
 const headerSubTextStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w500,
-  color: color_black,
+  color: color_primary,
 );
 
 /// Regular Text

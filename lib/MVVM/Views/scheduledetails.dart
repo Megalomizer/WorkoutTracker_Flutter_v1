@@ -6,15 +6,35 @@ class ScheduleDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TrainingsSchedule selectedSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
+    final List<TrainingsElement> scheduleElements = selectedSchedule.scheduleItems;
+
+    String locationTag = "All Locations";
+    if (selectedSchedule.locationSpecific) {
+      locationTag = "Heerlen Only";
+    }
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color_primary,
-        title: Text(
-          '${selectedSchedule.name} details',
+        title: const Text(
+          'Details',
           style: appBarHeaderTextStyle,
         ),
         actions: <Widget>[
           IconButton(
+            color: color_secondairy,
+            icon: const Icon(Icons.history),
+            tooltip: "View History",
+            onPressed: () {},
+          ),
+          IconButton(
+            color: color_secondairy,
+            icon: const Icon(Icons.edit),
+            tooltip: "Edit schedule",
+            onPressed: () {},
+          ),
+          IconButton(
+            color: color_secondairy,
             icon: const Icon(Icons.delete),
             tooltip: "Delete schedule",
             onPressed: () {
@@ -22,89 +42,313 @@ class ScheduleDetails extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.edit),
-            tooltip: "Edit schedule",
-            onPressed: () {},
-          ),
         ],
       ),
       body: Container(
         margin: const EdgeInsets.only(
-          left: 30,
-          top: 20,
-          right: 30,
+          left: 20,
+          top: 10,
+          right: 20,
           bottom: 10,
         ),
         child: Column(
           children: <Widget>[
-            Center(
-              child: Text(
-                selectedSchedule.name,
-                style: headerTextStyle,
-                textAlign: TextAlign.center,
+            /// NAME
+            Text(
+              selectedSchedule.name,
+              style: headerTextStyle,
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              width: 200,
+              margin: const EdgeInsets.only(
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 10,
+              ),
+              child: const Divider(
+                height: 2.0,
+                thickness: 2.0,
+                color: color_primary,
               ),
             ),
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Duration:',
-                  style: regularTextStyle
+            /// CARDS DATA
+            Table(
+              children: [
+                TableRow(
+                  children: [
+                    /// DURATION
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 0,
+                        top: 0,
+                        right: 10,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.timer,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              '${selectedSchedule.duration} minutes',
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /// KCAL
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        top: 0,
+                        right: 0,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.local_fire_department,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              '${selectedSchedule.kcal} kcal',
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '${selectedSchedule.duration} minutes',
-                  style: regularTextStyle
+                TableRow(
+                  children: [
+                    /// LOCATION SPECIFIC
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 0,
+                        top: 0,
+                        right: 10,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.location_pin,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              locationTag,
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /// AMOUNT USED
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        top: 0,
+                        right: 0,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: const Row(
+                        children: [
+                          SizedBox(width: 10,),
+                          Icon(
+                            Icons.repeat,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              'coming soon',
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Kcal:',
-                  style: regularTextStyle
+
+            /// TRAININGSELEMENTS
+            Container(
+              height: 325,
+              padding: const EdgeInsets.all(1.0),
+              decoration: BoxDecoration(
+                color: color_secondairy,
+                border: Border.all(
+                  color: color_primary,
+                  width: 4.0,
+                  style: BorderStyle.solid,
+                  strokeAlign: BorderSide.strokeAlignInside,
                 ),
-                Text(
-                  '${selectedSchedule.kcal} kcal',
-                  style: regularTextStyle
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0),
                 ),
-              ],
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 5,),
+                  const Text(
+                    "Elements",
+                    style: headerSubTextStyle,
+                  ),
+                  const SizedBox(height: 5,),
+                  const SizedBox(
+                    width: 200,
+                    child: Divider(
+                      height: 0,
+                      thickness: 2.0,
+                      color: color_primary,
+                    ),
+                  ),
+                  const SizedBox(height: 5,),
+                  Container(
+                    constraints: const BoxConstraints(
+                      minHeight: 200,
+                      maxHeight: 200,
+                    ),
+                    margin: const EdgeInsets.only(
+                      left: 0,
+                      top: 5,
+                      right: 0,
+                      bottom: 5,
+                    ),
+                    child: SingleChildScrollView(
+                      child: SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                          itemCount: scheduleElements.length,
+                          itemBuilder: (context, index) {
+                            final TrainingsElement element = scheduleElements[index];
+                            return Container(
+                              margin: const EdgeInsets.only(
+                                left: 0,
+                                top: 0,
+                                right: 0,
+                                bottom: 15,
+                              ),
+                              decoration: BoxDecoration(
+                                color: color_tertaire,
+                                border: Border.all(
+                                  color: color_primary,
+                                  width: 3.0,
+                                  style: BorderStyle.solid,
+                                  strokeAlign: BorderSide.strokeAlignInside,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(15.0)
+                                ),
+                              ),
+                              child: ListTile(
+                                title: element.buildTitle(context),
+                                subtitle: element.buildContext(context),
+                                tileColor: Colors.transparent,
+                                horizontalTitleGap: 5,
+                                onTap: () {},
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Location specific:',
-                  style: regularTextStyle
+            const SizedBox(height: 15,),
+            SizedBox(
+              width: 350,
+              height: 50,
+              child: ElevatedButton(
+                style: primairyButtonStyle,
+                onPressed: () {},
+                child: const Text(
+                  'Use Schedule',
+                  style: primairyButtonTextStyle,
+                  textAlign: TextAlign.center,
                 ),
-                Text(
-                  '${selectedSchedule.locationSpecific}',
-                  style: regularTextStyle
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Trainee:',
-                  style: regularTextStyle
-                ),
-                Text(
-                  '${selectedSchedule.trainee}',
-                  style: regularTextStyle
-                ),
-              ],
-            ),
-            const Divider(
-              height: 3,
-              thickness: 3,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: primairyButtonStyle,
-              child: const Text(
-                'View all trainings elements',
-                style: primairyButtonTextStyle,
-                textAlign: TextAlign.center,
               ),
             ),
           ],
