@@ -294,18 +294,24 @@ class ScheduleDetails extends StatelessWidget {
                       bottom: 5,
                     ),
                     child: SingleChildScrollView(
-                      child: SizedBox(
+                      child: Container(
                         height: 200,
+                        padding: const  EdgeInsets.only(
+                          left: 5,
+                          top: 0,
+                          right: 5,
+                          bottom: 0,
+                        ),
                         child: ListView.builder(
                           itemCount: selectedSchedule.scheduleItems.length,
                           itemBuilder: (context, index) {
-                            final TrainingsElement element = selectedSchedule.scheduleItems[index];
+                            final TrainingsElement element = selectedSchedule.scheduleItems[index]!;
                             return Container(
                               margin: const EdgeInsets.only(
                                 left: 0,
                                 top: 0,
                                 right: 0,
-                                bottom: 15,
+                                bottom: 5,
                               ),
                               decoration: BoxDecoration(
                                 color: color_tertaire,

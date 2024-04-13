@@ -8,7 +8,7 @@ const color_primary = Color.fromRGBO(55, 108, 70, 1);
 /// Secondairy color
 const color_secondairy = Color.fromRGBO(254, 250, 224, 1);
 /// Border color
-const color_tertaire = Color.fromRGBO(116, 158, 109, 1);
+const color_tertaire = Color.fromRGBO(177, 218, 169, 1);
 /// Black color
 const color_black = Color.fromRGBO(0, 0, 0, 1);
 /// White color

@@ -124,7 +124,7 @@
     },
     {
       "id": "3:6635498724338019789",
-      "lastPropertyId": "6:810887799420695543",
+      "lastPropertyId": "7:1657136574616619278",
       "name": "TrainingsSchedule",
       "properties": [
         {
@@ -162,6 +162,11 @@
           "id": "6:810887799420695543",
           "name": "duration",
           "type": 6
+        },
+        {
+          "id": "7:1657136574616619278",
+          "name": "scheduleItemsIds",
+          "type": 27
         }
       ],
       "relations": []

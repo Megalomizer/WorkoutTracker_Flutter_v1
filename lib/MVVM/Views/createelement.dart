@@ -71,6 +71,7 @@ class _CreateElementState extends State<CreateElement> {
       int? newId = putElement(createdElement);
       if (newId == null || newId < 0) return;
       createdElement = getElement(newId)!;
+      activeSchedule.scheduleItemsIds.add(createdElement.id);
       activeSchedule.scheduleItems.add(createdElement);
       putSchedule(activeSchedule);
 

@@ -13,7 +13,8 @@ class TrainingsSchedule implements ListItem {
   int kcal = 0;
   bool locationSpecific = false;
   @Backlink('schedule')
-  List<TrainingsElement> scheduleItems = ToMany<TrainingsElement>(); // 1:N
+  List<TrainingsElement?> scheduleItems = ToMany<TrainingsElement>(); // 1:N
+  List<int> scheduleItemsIds = <int>[];
   final trainee = ToOne<Trainee>(); // 1:N
 
   /// Implement Widget from ListItem
@@ -65,25 +66,43 @@ class TrainingsSchedule implements ListItem {
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 
 /// Put a new object in the db box
-void putSchedule(TrainingsSchedule schedule) {
-  box.schedulesBox.put(schedule);
+TrainingsSchedule? putSchedule(TrainingsSchedule schedule) {
+  int id = box.schedulesBox.put(schedule);
+  return getSchedule(id);
+}
+
+/// Connect Trainingsschedule tot elements
+TrainingsSchedule? connectSchedule(TrainingsSchedule? schedule) {
+  List<TrainingsElement?> elements = getMultipleElements(schedule!.scheduleItemsIds);
+  for (var element in elements) {
+    schedule.scheduleItems.add(element);
+  }
+  //schedule.scheduleItems.removeWhere((element) => element == null);
+  return schedule;
 }
 
 /// Get an object by id from the db box
 TrainingsSchedule? getSchedule(int id) {
   TrainingsSchedule? schedule = box.schedulesBox.get(id);
+  connectSchedule(schedule);
   return schedule;
 }
 
 /// Get multiple objects by id from the db box
 List<TrainingsSchedule?> getMultipleSchedules(List<int> ids) {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getMany(ids);
+  for (TrainingsSchedule? element in schedules) {
+    element = connectSchedule(element);
+  }
   return schedules;
 }
 
 /// Get all objects from the db box
 List<TrainingsSchedule?> getAllSchedules() {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getAll();
+  for (TrainingsSchedule? element in schedules) {
+    element = connectSchedule(element);
+  }
   return schedules;
 }
 

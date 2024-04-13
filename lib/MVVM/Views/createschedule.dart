@@ -40,6 +40,20 @@ class _CreateScheduleState extends State<CreateSchedule> {
       if (activeUser != null) {
         newSchedule.trainee.target = activeUser;
       }
+
+      int totalDuration = 0;
+      int totalKcal = 0;
+
+      newSchedule.scheduleItems.forEach((element) {
+        totalDuration += element!.duration;
+        totalKcal += element.kcal;
+      });
+      TrainingsElement? element = newSchedule.scheduleItems.firstWhere((element) => element!.locationSpecific == true);
+      if (element != null || element!.locationSpecific == true) newSchedule.locationSpecific = true;
+
+      newSchedule.duration = totalDuration;
+      newSchedule.kcal = totalKcal;
+
       putSchedule(newSchedule);
     }
 
@@ -160,7 +174,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
                               child: ListView.builder(
                                 itemCount: newSchedule.scheduleItems.length,
                                 itemBuilder: (context, index) {
-                                  final TrainingsElement element = newSchedule.scheduleItems[index];
+                                  final TrainingsElement element = newSchedule.scheduleItems[index]!;
                                   return Container(
                                     margin: const EdgeInsets.only(
                                       left: 5,

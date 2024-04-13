@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 
 class AllSchedules extends StatefulWidget {
@@ -9,11 +8,11 @@ class AllSchedules extends StatefulWidget {
 }
 
 class _AllSchedulesState extends State<AllSchedules> {
-  List<TrainingsSchedule> allSchedules = box.schedulesBox.getAll();
+  List<TrainingsSchedule?> allSchedules = getAllSchedules();
 
   Future<void> pullRefresh () async {
     setState(() {
-      allSchedules = box.schedulesBox.getAll();
+      allSchedules = getAllSchedules();
     });
   }
 
@@ -51,7 +50,7 @@ class _AllSchedulesState extends State<AllSchedules> {
           child: ListView.builder(
             itemCount: allSchedules.length,
             itemBuilder: (context, index) {
-              final TrainingsSchedule schedule = allSchedules[index];
+              final TrainingsSchedule schedule = allSchedules[index]!;
               return Container(
                 margin: const EdgeInsets.only(
                   left: 0,

@@ -140,7 +140,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(3, 6635498724338019789),
       name: 'TrainingsSchedule',
-      lastPropertyId: const obx_int.IdUid(6, 810887799420695543),
+      lastPropertyId: const obx_int.IdUid(7, 1657136574616619278),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -175,6 +175,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(6, 810887799420695543),
             name: 'duration',
             type: 6,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(7, 1657136574616619278),
+            name: 'scheduleItemsIds',
+            type: 27,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -372,13 +377,16 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (TrainingsSchedule object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
-          fbb.startTable(7);
+          final scheduleItemsIdsOffset =
+              fbb.writeListInt64(object.scheduleItemsIds);
+          fbb.startTable(8);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, nameOffset);
           fbb.addInt64(2, object.kcal);
           fbb.addBool(3, object.locationSpecific);
           fbb.addInt64(4, object.trainee.targetId);
           fbb.addInt64(5, object.duration);
+          fbb.addOffset(6, scheduleItemsIdsOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -394,7 +402,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
             ..locationSpecific =
                 const fb.BoolReader().vTableGet(buffer, rootOffset, 10, false)
             ..duration =
-                const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
+                const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0)
+            ..scheduleItemsIds =
+                const fb.ListReader<int>(fb.Int64Reader(), lazy: false)
+                    .vTableGet(buffer, rootOffset, 16, []);
           object.trainee.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
           object.trainee.attach(store);
@@ -555,6 +566,11 @@ class TrainingsSchedule_ {
   /// see [TrainingsSchedule.duration]
   static final duration =
       obx.QueryIntegerProperty<TrainingsSchedule>(_entities[2].properties[5]);
+
+  /// see [TrainingsSchedule.scheduleItemsIds]
+  static final scheduleItemsIds =
+      obx.QueryIntegerVectorProperty<TrainingsSchedule>(
+          _entities[2].properties[6]);
 }
 
 /// [Trainee] entity fields to define ObjectBox queries.
