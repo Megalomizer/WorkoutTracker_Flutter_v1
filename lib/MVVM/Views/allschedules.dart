@@ -30,7 +30,11 @@ class _AllSchedulesState extends State<AllSchedules> {
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Add new schedule',
-            onPressed: () => Navigator.pushNamed(context, '/schedules/create',),
+            onPressed: () {
+              TrainingsSchedule newSchedule = TrainingsSchedule();
+              putSchedule(newSchedule);
+              Navigator.pushNamed(context, '/schedules/create', arguments: newSchedule);
+            }
           ),
         ],
       ),

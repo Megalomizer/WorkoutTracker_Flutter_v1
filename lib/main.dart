@@ -42,6 +42,7 @@ Future<void> main() async {
       '/schedules/details': (BuildContext context) => const ScheduleDetails(),
       '/schedules/create': (BuildContext context) => const CreateSchedule(),
       '/elements': (BuildContext context) => const AllElements(),
+      '/elements/details': (BuildContext context) => const ElementDetails(),
       '/elements/create': (BuildContext context) => const CreateElement(),
     }
   ));

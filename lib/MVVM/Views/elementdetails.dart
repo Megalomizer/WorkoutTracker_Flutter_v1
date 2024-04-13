@@ -1,14 +1,14 @@
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 
-class ScheduleDetails extends StatelessWidget {
-  const ScheduleDetails({super.key});
+class ElementDetails extends StatelessWidget {
+  const ElementDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TrainingsSchedule selectedSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
+    final TrainingsElement selectedElement = ModalRoute.of(context)!.settings.arguments as TrainingsElement;
 
     String locationTag = "All Locations";
-    if (selectedSchedule.locationSpecific) {
+    if (selectedElement.locationSpecific) {
       locationTag = "Heerlen Only";
     }
     
@@ -22,22 +22,16 @@ class ScheduleDetails extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             color: color_secondairy,
-            icon: const Icon(Icons.history),
-            tooltip: "View History",
-            onPressed: () {},
-          ),
-          IconButton(
-            color: color_secondairy,
             icon: const Icon(Icons.edit),
-            tooltip: "Edit schedule",
+            tooltip: "Edit element",
             onPressed: () {},
           ),
           IconButton(
             color: color_secondairy,
             icon: const Icon(Icons.delete),
-            tooltip: "Delete schedule",
+            tooltip: "Delete element",
             onPressed: () {
-              removeSchedule(selectedSchedule.id);
+              removeSchedule(selectedElement.id);
               Navigator.pop(context);
             },
           ),
@@ -54,7 +48,7 @@ class ScheduleDetails extends StatelessWidget {
           children: <Widget>[
             /// NAME
             Text(
-              selectedSchedule.name,
+              selectedElement.name!,
               style: headerTextStyle,
               textAlign: TextAlign.center,
             ),
@@ -110,7 +104,7 @@ class ScheduleDetails extends StatelessWidget {
                           SizedBox(
                             width: 80,
                             child: Text(
-                              '${selectedSchedule.duration} minutes',
+                              '${selectedElement.duration} minutes',
                               style: regularTextStyle,
                               textAlign: TextAlign.right,
                             ),
@@ -151,7 +145,7 @@ class ScheduleDetails extends StatelessWidget {
                           SizedBox(
                             width: 80,
                             child: Text(
-                              '${selectedSchedule.kcal} kcal',
+                              '${selectedElement.kcal} kcal',
                               style: regularTextStyle,
                               textAlign: TextAlign.right,
                             ),
@@ -204,7 +198,7 @@ class ScheduleDetails extends StatelessWidget {
                         ],
                       ),
                     ),
-                    /// AMOUNT USED
+                    /// WEIGHT/DIFFICULTY
                     Container(
                       height: 75,
                       margin: const EdgeInsets.only(
@@ -226,18 +220,104 @@ class ScheduleDetails extends StatelessWidget {
                           Radius.circular(15.0),
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          SizedBox(width: 10,),
-                          Icon(
-                            Icons.repeat,
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.fitness_center,
                             color: color_primary,
                             size: 35.0,
                           ),
                           SizedBox(
                             width: 80,
                             child: Text(
-                              'coming soon',
+                              'Difficulty ${selectedElement.weight}',
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    /// SETS
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 0,
+                        top: 0,
+                        right: 10,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.workspaces,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              '${selectedElement.sets} sets',
+                              style: regularTextStyle,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /// ITERATIONS
+                    Container(
+                      height: 75,
+                      margin: const EdgeInsets.only(
+                        left: 10,
+                        top: 0,
+                        right: 0,
+                        bottom: 10,
+                      ),
+                      padding: const EdgeInsets.all(1.0),
+                      decoration: BoxDecoration(
+                        color: color_secondairy,
+                        border: Border.all(
+                          color: color_primary,
+                          width: 4.0,
+                          style: BorderStyle.solid,
+                          strokeAlign: BorderSide.strokeAlignInside,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10,),
+                          const Icon(
+                            Icons.restart_alt,
+                            color: color_primary,
+                            size: 35.0,
+                          ),
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              '${selectedElement.iterations} times',
                               style: regularTextStyle,
                               textAlign: TextAlign.right,
                             ),
@@ -249,10 +329,17 @@ class ScheduleDetails extends StatelessWidget {
                 ),
               ],
             ),
-            /// TRAININGSELEMENTS
+            /// DESCRIPTION --> Element details
             Container(
-              height: 325,
+              height: 125,
+              width: 400,
               padding: const EdgeInsets.all(1.0),
+              margin: const EdgeInsets.only(
+                left: 0,
+                top: 10,
+                right: 0,
+                bottom: 10,
+              ),
               decoration: BoxDecoration(
                 color: color_secondairy,
                 border: Border.all(
@@ -267,12 +354,12 @@ class ScheduleDetails extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 1,),
                   const Text(
-                    "Elements",
+                    "Description",
                     style: headerSubTextStyle,
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 1,),
                   const SizedBox(
                     width: 200,
                     child: Divider(
@@ -281,72 +368,17 @@ class ScheduleDetails extends StatelessWidget {
                       color: color_primary,
                     ),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 1,),
                   Container(
-                    constraints: const BoxConstraints(
-                      minHeight: 200,
-                      maxHeight: 200,
-                    ),
-                    margin: const EdgeInsets.only(
-                      left: 0,
-                      top: 5,
-                      right: 0,
-                      bottom: 5,
-                    ),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                          itemCount: selectedSchedule.scheduleItems.length,
-                          itemBuilder: (context, index) {
-                            final TrainingsElement element = selectedSchedule.scheduleItems[index];
-                            return Container(
-                              margin: const EdgeInsets.only(
-                                left: 0,
-                                top: 0,
-                                right: 0,
-                                bottom: 15,
-                              ),
-                              decoration: BoxDecoration(
-                                color: color_tertaire,
-                                border: Border.all(
-                                  color: color_primary,
-                                  width: 3.0,
-                                  style: BorderStyle.solid,
-                                  strokeAlign: BorderSide.strokeAlignInside,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(15.0)
-                                ),
-                              ),
-                              child: ListTile(
-                                title: element.buildTitle(context),
-                                subtitle: element.buildContext(context),
-                                tileColor: Colors.transparent,
-                                horizontalTitleGap: 5,
-                                onTap: () => Navigator.pushNamed(context, '/elements/details', arguments: element),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                    margin: const EdgeInsets.all(1.0),
+                    width: 250,
+                    child: Text(
+                      selectedElement.description!,
+                      style: regularTextStyle,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 15,),
-            SizedBox(
-              width: 350,
-              height: 50,
-              child: ElevatedButton(
-                style: primairyButtonStyle,
-                onPressed: () {},
-                child: const Text(
-                  'Use Schedule',
-                  style: primairyButtonTextStyle,
-                  textAlign: TextAlign.center,
-                ),
               ),
             ),
           ],

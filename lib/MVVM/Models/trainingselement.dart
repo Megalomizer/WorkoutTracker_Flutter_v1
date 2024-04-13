@@ -68,37 +68,38 @@ class TrainingsElement implements ListItem {
 /////////////////////////////////////////////////       General CRUD Implementation Sequence       ///////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Put a new object in the db box
-void putElement(TrainingsElement element) {
-  if (element.name == null || element.name == "") return;
-  box.elementBox.put(element);
+/// Put a new object in the db box and return the id
+int? putElement(TrainingsElement element) {
+  if (element.name == null || element.name == "") return null;
+  int newId = box.elementBox.put(element);
+  return newId;
 }
 
-// Get an object by id from the db box
+/// Get an object by id from the db box
 TrainingsElement? getElement(int id) {
   TrainingsElement? element = box.elementBox.get(id);
   return element;
 }
 
-// Get multiple objects by id from the db box
+/// Get multiple objects by id from the db box
 List<TrainingsElement?> getMultipleElements(List<int> ids) {
   List<TrainingsElement?> elements = box.elementBox.getMany(ids);
   return elements;
 }
 
-// Get all objects from the db box
+/// Get all objects from the db box
 List<TrainingsElement> getAllElements() {
   List<TrainingsElement> elements = box.elementBox.getAll();
   return elements;
 }
 
-// Remove the object from the db box using id
+/// Remove the object from the db box using id
 bool removeElement(int id) {
   final wasRemoved = box.elementBox.remove(id);
   return wasRemoved;
 }
 
-// Remove multiple objects from the db box using id
+/// Remove multiple objects from the db box using id
 bool removeMultipleElements(List<int> ids) {
   final totalToRemove = ids.length;
   final totalRemoved = box.elementBox.removeMany(ids);
@@ -109,7 +110,7 @@ bool removeMultipleElements(List<int> ids) {
   return false; // Else
 }
 
-// Remove all objects from the db box
+/// Remove all objects from the db box
 bool removeAllElements({bool? check = false}) {
   if(check == true) {
     final totalToRemove = box.elementBox.count();

@@ -53,6 +53,8 @@ class _CreateElementState extends State<CreateElement> {
 
   @override
   Widget build(BuildContext context) {
+    final TrainingsSchedule activeSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
+
     void createElement () {
       TrainingsElement createdElement = TrainingsElement();
       createdElement.name = name_controller.text;
@@ -63,8 +65,15 @@ class _CreateElementState extends State<CreateElement> {
       if (int.tryParse(weight_controller.text) != null) createdElement.weight = int.parse(weight_controller.text);
       createdElement.duration = new_duration;
       createdElement.locationSpecific = new_locationspecific;
+      
+      createdElement.schedule.target = activeSchedule;
 
-      putElement(createdElement);
+      int? newId = putElement(createdElement);
+      if (newId == null || newId < 0) return;
+      createdElement = getElement(newId)!;
+      activeSchedule.scheduleItems.add(createdElement);
+      putSchedule(activeSchedule);
+
       Navigator.pop(context);
     }
 

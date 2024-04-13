@@ -71,7 +71,7 @@ class _AllElementsState extends State<AllElements> {
                   subtitle: element.buildContext(context),
                   tileColor: Colors.transparent,
                   horizontalTitleGap: 10,
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, '/elements/details', arguments: element),
                 ),
               );
             },
