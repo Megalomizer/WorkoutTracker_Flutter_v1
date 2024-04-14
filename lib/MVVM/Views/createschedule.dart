@@ -31,29 +31,8 @@ class _CreateScheduleState extends State<CreateSchedule> {
     TrainingsSchedule newSchedule = ModalRoute.of(context)!.settings.arguments as TrainingsSchedule;
     
     void createSchedule () {
-      if (name_controller.text != null) {
-        newSchedule.name = name_controller.text;
-      }
-      if (new_locationspecific != null) {
-        newSchedule.locationSpecific = new_locationspecific;
-      }
-      if (activeUser != null) {
-        newSchedule.trainee.target = activeUser;
-      }
-
-      int totalDuration = 0;
-      int totalKcal = 0;
-
-      newSchedule.scheduleItems.forEach((element) {
-        totalDuration += element!.duration;
-        totalKcal += element.kcal;
-      });
-      TrainingsElement? element = newSchedule.scheduleItems.firstWhere((element) => element!.locationSpecific == true);
-      if (element != null || element!.locationSpecific == true) newSchedule.locationSpecific = true;
-
-      newSchedule.duration = totalDuration;
-      newSchedule.kcal = totalKcal;
-
+      if (name_controller.text != null) newSchedule.name = name_controller.text;
+      if (activeUser != null) newSchedule.trainee.target = activeUser;
       putSchedule(newSchedule);
     }
 
@@ -199,7 +178,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
                                       subtitle: element.buildContext(context),
                                       tileColor: Colors.transparent,
                                       horizontalTitleGap: 5,
-                                      onTap: () => Navigator.pushNamed(context, '/elements/details', arguments: element),
+                                      onTap: () => Navigator.pushNamed(context, '/elements/edit', arguments: element),
                                     ),
                                   );
                                 },

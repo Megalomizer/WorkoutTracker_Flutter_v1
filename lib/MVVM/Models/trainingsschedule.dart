@@ -66,25 +66,32 @@ class TrainingsSchedule implements ListItem {
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 
 /// Put a new object in the db box
-TrainingsSchedule? putSchedule(TrainingsSchedule schedule) {
+int? putSchedule(TrainingsSchedule schedule) {
+  if (schedule.scheduleItems.isNotEmpty) {
+    for (TrainingsElement? element in schedule.scheduleItems) {
+      schedule.duration += element!.duration;
+      schedule.kcal += element.kcal;
+      if (element.locationSpecific == true) schedule.locationSpecific = true;
+    }
+  }
+  
   int id = box.schedulesBox.put(schedule);
-  return getSchedule(id);
+  return id;
 }
 
 /// Connect Trainingsschedule tot elements
-TrainingsSchedule? connectSchedule(TrainingsSchedule? schedule) {
-  List<TrainingsElement?> elements = getMultipleElements(schedule!.scheduleItemsIds);
-  for (var element in elements) {
-    schedule.scheduleItems.add(element);
+TrainingsSchedule? connectSchedule(TrainingsSchedule schedule) {
+  List<TrainingsElement?> elements = getMultipleElements(schedule.scheduleItemsIds);
+  for (TrainingsElement? element in elements) {
+    if (element != null) schedule.scheduleItems.add(element);
   }
-  //schedule.scheduleItems.removeWhere((element) => element == null);
   return schedule;
 }
 
 /// Get an object by id from the db box
 TrainingsSchedule? getSchedule(int id) {
   TrainingsSchedule? schedule = box.schedulesBox.get(id);
-  connectSchedule(schedule);
+  if (schedule!.scheduleItemsIds.isNotEmpty) connectSchedule(schedule);
   return schedule;
 }
 
@@ -92,7 +99,7 @@ TrainingsSchedule? getSchedule(int id) {
 List<TrainingsSchedule?> getMultipleSchedules(List<int> ids) {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getMany(ids);
   for (TrainingsSchedule? element in schedules) {
-    element = connectSchedule(element);
+    element = connectSchedule(element!);
   }
   return schedules;
 }
@@ -101,7 +108,7 @@ List<TrainingsSchedule?> getMultipleSchedules(List<int> ids) {
 List<TrainingsSchedule?> getAllSchedules() {
   List<TrainingsSchedule?> schedules = box.schedulesBox.getAll();
   for (TrainingsSchedule? element in schedules) {
-    element = connectSchedule(element);
+    element = connectSchedule(element!);
   }
   return schedules;
 }

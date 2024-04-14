@@ -1,3 +1,4 @@
+import 'package:workouttracker/MVVM/Views/editelement.dart';
 import 'package:workouttracker/abstracts/pageimports.dart'; // All pages imported
 import 'package:workouttracker/abstracts/fileimports.dart'; // All imports
 import 'package:workouttracker/abstracts/databaseconfig.dart'; // Database
@@ -38,12 +39,15 @@ Future<void> main() async {
     ),
     home: MyAppHome(),
     routes: <String, WidgetBuilder>{
+      // SCHEDULES
       '/schedules': (BuildContext context) => const AllSchedules(),
       '/schedules/details': (BuildContext context) => const ScheduleDetails(),
       '/schedules/create': (BuildContext context) => const CreateSchedule(),
+      // ELEMENTS
       '/elements': (BuildContext context) => const AllElements(),
       '/elements/details': (BuildContext context) => const ElementDetails(),
       '/elements/create': (BuildContext context) => const CreateElement(),
+      '/elements/edit' : (BuildContext context) => const EditElement(),
     }
   ));
 } 

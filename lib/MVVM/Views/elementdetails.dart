@@ -24,14 +24,20 @@ class ElementDetails extends StatelessWidget {
             color: color_secondairy,
             icon: const Icon(Icons.edit),
             tooltip: "Edit element",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/elements/edit',
+                arguments: selectedElement,
+              );
+            },
           ),
           IconButton(
             color: color_secondairy,
             icon: const Icon(Icons.delete),
             tooltip: "Delete element",
             onPressed: () {
-              removeSchedule(selectedElement.id);
+              removeElement(selectedElement.id);
               Navigator.pop(context);
             },
           ),
