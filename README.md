@@ -1,6 +1,5 @@
 # workouttracker
-
-A new Flutter project.
+A Flutter project that is being edited on a phone!
 
 ## Getting Started
 
